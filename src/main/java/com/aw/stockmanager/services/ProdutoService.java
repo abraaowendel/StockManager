@@ -54,7 +54,7 @@ public class ProdutoService {
     public void delete(Long id) {
         try{
             if(repository.findById(id).isEmpty()) {
-                throw new ResourceNotFoundException("Produto não encontrado");
+                throw new ResourceNotFoundException("Produto não encontrado.");
             }
             repository.deleteById(id);
         }

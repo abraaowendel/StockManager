@@ -22,7 +22,6 @@ public class Produto implements Serializable {
     public Produto() {
 
     }
-
     public Produto(Long id, String nome, String descricao, String codigo, Double preco, Integer quantidade) {
         this.id = id;
         this.nome = nome;
