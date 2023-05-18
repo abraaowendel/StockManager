@@ -2,6 +2,7 @@ package com.aw.stockmanager.controllers;
 
 import com.aw.stockmanager.model.dto.ProdutoDTO;
 import com.aw.stockmanager.services.ProdutoService;
+import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -29,12 +30,12 @@ public class ProdutoController {
     }
 
     @PostMapping
-    public ResponseEntity<ProdutoDTO> cadastrarProduto(@RequestBody ProdutoDTO dto){
+    public ResponseEntity<ProdutoDTO> cadastrarProduto(@RequestBody @Valid ProdutoDTO dto){
         return ResponseEntity.status(HttpStatus.CREATED).body(service.insert(dto));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ProdutoDTO> atualizarProduto(@PathVariable Long id, @RequestBody ProdutoDTO dto){
+    public ResponseEntity<ProdutoDTO> atualizarProduto(@PathVariable Long id, @RequestBody @Valid ProdutoDTO dto){
         return ResponseEntity.status(HttpStatus.OK).body(service.update(id, dto));
     }
 

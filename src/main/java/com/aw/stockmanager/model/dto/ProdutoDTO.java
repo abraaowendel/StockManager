@@ -1,6 +1,10 @@
 package com.aw.stockmanager.model.dto;
 
 import com.aw.stockmanager.model.entities.Produto;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -8,10 +12,16 @@ import java.util.Objects;
 public class ProdutoDTO implements Serializable {
     private static final long serialVersionUUID = 1L;
     private Long id;
+    @NotBlank(message = "Nome inválido.")
     private String nome;
+    @NotBlank(message = "Descrição inválida.")
     private String descricao;
+    @NotBlank(message = "Código inválido.")
     private String codigo;
+    @NotNull(message = "Preço não pode ser nulo.")
+    @DecimalMin(value = "0.01", message = "Preço inválido.")
     private Double preco;
+    @Min(value = 0, message = "Quantidade inválida.")
     private Integer quantidade;
 
     public ProdutoDTO() {
