@@ -3,13 +3,14 @@ package com.aw.stockmanager.controllers.exceptions;
 import org.springframework.http.HttpStatus;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ErrorListResponse {
     private HttpStatus status;
     private String message;
     private Instant timestamp;
-    private List<ErrorDetails> errors;
+    private List<ErrorDetails> errors = new ArrayList<>();
 
     public ErrorListResponse() {
     }
