@@ -1,8 +1,10 @@
 package com.aw.stockmanager.model.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Objects;
 
 @Entity
@@ -18,25 +20,36 @@ public class Produto implements Serializable {
     private String codigo;
     private Double preco;
     private Integer quantidade;
-
+    @Column(name = "data_de_cadastro")
+    private LocalDate dataDeCadastro;
+    @ManyToOne
+    @JsonIgnore
+    private Categoria categoria;
+    @ManyToOne
+    @JsonIgnore
+    private Fornecedor fornecedor;
     public Produto() {
 
     }
-    public Produto(Long id, String nome, String descricao, String codigo, Double preco, Integer quantidade) {
+
+    public Produto(Long id, String nome, String descricao, String codigo, Double preco, Integer quantidade, LocalDate dataDeCadastro, Categoria categoria, Fornecedor fornecedor) {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
         this.codigo = codigo;
         this.preco = preco;
         this.quantidade = quantidade;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+        this.dataDeCadastro = dataDeCadastro;
+        this.categoria = categoria;
+        this.fornecedor = fornecedor;
     }
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getNome() {
@@ -77,6 +90,29 @@ public class Produto implements Serializable {
 
     public void setQuantidade(Integer quantidade) {
         this.quantidade = quantidade;
+    }
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
+    }
+
+    public LocalDate getDataDeCadastro() {
+        return dataDeCadastro;
+    }
+
+    public void setDataDeCadastro(LocalDate dataDeCadastro) {
+        this.dataDeCadastro = dataDeCadastro;
+    }
+
+    public Fornecedor getFornecedor() {
+        return fornecedor;
+    }
+
+    public void setFornecedor(Fornecedor fornecedor) {
+        this.fornecedor = fornecedor;
     }
 
     @Override

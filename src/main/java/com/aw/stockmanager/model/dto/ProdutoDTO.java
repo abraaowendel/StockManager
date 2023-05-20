@@ -1,16 +1,15 @@
 package com.aw.stockmanager.model.dto;
 
+import com.aw.stockmanager.model.entities.Categoria;
+import com.aw.stockmanager.model.entities.Fornecedor;
 import com.aw.stockmanager.model.entities.Produto;
-import jakarta.validation.constraints.DecimalMin;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.*;
 
-import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Objects;
 
-public class ProdutoDTO implements Serializable {
-    private static final long serialVersionUUID = 1L;
+public class ProdutoDTO {
     private Long id;
     @NotBlank(message = "Nome inválido.")
     private String nome;
@@ -23,17 +22,26 @@ public class ProdutoDTO implements Serializable {
     private Double preco;
     @Min(value = 0, message = "Quantidade inválida.")
     private Integer quantidade;
+    @Past(message = "A data deve estar no passado.")
+    private LocalDate dataDeCadastro;
+    @Valid
+    private Categoria categoria;
+    @Valid
+    private Fornecedor fornecedor;
 
     public ProdutoDTO() {
     }
 
-    public ProdutoDTO(Long id, String nome, String descricao, String codigo, Double preco, Integer quantidade) {
+    public ProdutoDTO(Long id, String nome, String descricao, String codigo, Double preco, Integer quantidade, LocalDate dataDeCadastro, Categoria categoria, Fornecedor fornecedor) {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
         this.codigo = codigo;
         this.preco = preco;
         this.quantidade = quantidade;
+        this.dataDeCadastro = dataDeCadastro;
+        this.categoria = categoria;
+        this.fornecedor = fornecedor;
     }
 
     public ProdutoDTO(Produto entity) {
@@ -43,6 +51,9 @@ public class ProdutoDTO implements Serializable {
         codigo = entity.getCodigo();
         preco = entity.getPreco();
         quantidade = entity.getQuantidade();
+        dataDeCadastro = entity.getDataDeCadastro();
+        categoria = entity.getCategoria();
+        fornecedor = entity.getFornecedor();
     }
 
     public Long getId() {
@@ -91,6 +102,14 @@ public class ProdutoDTO implements Serializable {
 
     public void setQuantidade(Integer quantidade) {
         this.quantidade = quantidade;
+    }
+
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
+    public Fornecedor getFornecedor() {
+        return fornecedor;
     }
 
     @Override

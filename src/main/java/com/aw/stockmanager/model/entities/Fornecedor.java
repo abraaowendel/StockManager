@@ -1,8 +1,11 @@
 package com.aw.stockmanager.model.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -17,6 +20,9 @@ public class Fornecedor implements Serializable {
     private String telefone;
     @Embedded
     private Endereco endereco;
+    @JsonIgnore
+    @OneToMany(mappedBy = "fornecedor")
+    private List<Produto> produtos = new ArrayList<>();
     public Fornecedor() {
     }
 
@@ -50,13 +56,17 @@ public class Fornecedor implements Serializable {
     public void setTelefone(String telefone) {
         this.telefone = telefone;
     }
-
+    @JsonIgnore
     public Endereco getEndereco() {
         return endereco;
     }
 
     public void setEndereco(Endereco endereco) {
         this.endereco = endereco;
+    }
+
+    public List<Produto> getProdutos() {
+        return produtos;
     }
 
     @Override
