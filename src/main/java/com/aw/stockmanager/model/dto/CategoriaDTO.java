@@ -2,13 +2,9 @@ package com.aw.stockmanager.model.dto;
 
 import com.aw.stockmanager.model.entities.Categoria;
 
-import java.io.Serializable;
-
-public class CategoriaDTO implements Serializable {
-    private static final long serialVersionUUID = 1L;
+public class CategoriaDTO {
     private Long id;
     private String nome;
-
     public CategoriaDTO() {
     }
 
@@ -36,4 +32,6 @@ public class CategoriaDTO implements Serializable {
     public void setNome(String nome) {
         this.nome = nome;
     }
+
+
 }
