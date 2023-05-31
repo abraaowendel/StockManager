@@ -1,0 +1,33 @@
+header{
+    background-color: #0E1B3B; 
+}
+.sides{    
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1100px;    
+    margin: auto;
+    height: 60px; 
+    padding: 0 15px;
+}
+.side--left, .side--right ul{
+    display: flex;
+    align-items: center;
+}
+
+.side--right ul{
+    list-style: none;
+    color: #fff;
+}
+.side--right li{
+    margin: 0 20px;
+    cursor: pointer;
+}
+.side--right li:hover{
+    color: #ccc;
+}
+h2{
+    color: #fff;
+    font-size: 23px;
+    margin-left: 10px;
+}

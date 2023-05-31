@@ -6,32 +6,31 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.io.Serializable;
 import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 @Entity
-@Table(name = "TB_USUARIO")
-public class Usuario implements Serializable, UserDetails {
+@Table(name = "TB_USER")
+public class User implements Serializable, UserDetails {
     private static final long serialVersionUUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String username;
     private String password;
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "TB_USUARIOS_ROLES",
-            joinColumns = @JoinColumn(name = "usuario_id"),
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinTable(name = "TB_USERS_ROLES",
+            joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<Role> roles = new HashSet<>();
+    private Role role;
 
-    public Usuario() {
+    public User() {
     }
 
-    public Usuario(Long id, String username, String password, Set<Role> roles) {
+    public User(Long id, String username, String password, Role role) {
         this.id = id;
         this.username = username;
         this.password = password;
-        roles.forEach(getRoles()::add);
+        this.role = role;
     }
 
     public void setId(Long id) {
@@ -42,12 +41,26 @@ public class Usuario implements Serializable, UserDetails {
         return id;
     }
 
-    public Set<Role> getRoles() {
-        return roles;
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {return this.roles;}
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(role);
+    }
 
     @Override
     public String getPassword() {
@@ -78,6 +91,4 @@ public class Usuario implements Serializable, UserDetails {
     public boolean isEnabled() {
         return true;
     }
-
-
 }

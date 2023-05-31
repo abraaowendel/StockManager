@@ -11,27 +11,19 @@ import java.util.UUID;
 @Table(name = "TB_ROLE")
 public class Role implements Serializable, GrantedAuthority {
 
-    private static final long serialVersionUUID = 1L;
-
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "id", nullable = false)
     private UUID roleId;
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @Enumerated(value = EnumType.STRING)
     private RoleName roleName;
 
     public Role() {
+
     }
 
     public Role(UUID roleId, RoleName roleName) {
         this.roleId = roleId;
         this.roleName = roleName;
-    }
-
-    @Override
-    public String getAuthority() {
-        return this.roleName.toString();
     }
 
     public UUID getRoleId() {
@@ -40,5 +32,10 @@ public class Role implements Serializable, GrantedAuthority {
 
     public RoleName getRoleName() {
         return roleName;
+    }
+
+    @Override
+    public String getAuthority() {
+        return null;
     }
 }

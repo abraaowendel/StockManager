@@ -1,5 +1,6 @@
 package com.aw.stockmanager.controllers.exceptions;
 
+import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.aw.stockmanager.services.exceptions.DataBaseException;
 import com.aw.stockmanager.services.exceptions.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
@@ -32,6 +33,14 @@ public class GlobalExceptionHandler {
         var response = copiarDados(httpStatus, exception.getMessage());
         return ResponseEntity.status(httpStatus).body(response);
     }
+
+    @ExceptionHandler(TokenExpiredException.class)
+    public ResponseEntity<ErrorDetails> handleTokenExpiredException(TokenExpiredException exception){
+        HttpStatus httpStatus = HttpStatus.UNAUTHORIZED;
+        var response = copiarDados(httpStatus, "Token expirado.");
+        return ResponseEntity.status(httpStatus).body(response);
+    }
+
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorListResponse> handleMethodArgumentNotValidException(MethodArgumentNotValidException exception){

@@ -1,4 +1,4 @@
-package com.aw.stockmanager.security.token;
+package com.aw.stockmanager.model.dto;
 
 public class TokenDTO {
     private String token;
@@ -10,5 +10,4 @@ public class TokenDTO {
     public String getToken() {
         return token;
     }
-
 }

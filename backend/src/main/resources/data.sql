@@ -1,4 +1,3 @@
-
 -- Exemplos para a tabela TB_CATEGORIA
 INSERT INTO TB_CATEGORIA (nome) VALUES
     ('Eletrônicos');
@@ -48,4 +47,3 @@ INSERT INTO TB_PRODUTO (nome, descricao, codigo, preco, quantidade, data_de_cada
 
 INSERT INTO TB_PRODUTO (nome, descricao, codigo, preco, quantidade, data_de_cadastro, categoria_id, fornecedor_id) VALUES
     ('Perfume Floral', 'Perfume com notas florais suaves e delicadas.', 'PRF005', 89.99, 30, '2022-05-01', 5, 5);
-

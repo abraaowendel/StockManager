@@ -1,11 +1,12 @@
-package com.aw.stockmanager.security.filter;
+package com.aw.stockmanager.security;
 
-import com.aw.stockmanager.repositories.UsuarioRepository;
+import com.aw.stockmanager.repositories.UserRepository;
 import com.aw.stockmanager.services.TokenService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -15,11 +16,11 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 
 @Component
-public class MyFilter extends OncePerRequestFilter {
+public class Filter extends OncePerRequestFilter {
     final TokenService tokenService;
-    final UsuarioRepository usuarioRepository;
+    final UserRepository usuarioRepository;
 
-    public MyFilter(TokenService tokenService, UsuarioRepository usuarioRepository) {
+    public Filter(TokenService tokenService, UserRepository usuarioRepository) {
         this.tokenService = tokenService;
         this.usuarioRepository = usuarioRepository;
     }
@@ -41,5 +42,4 @@ public class MyFilter extends OncePerRequestFilter {
 
         filterChain.doFilter(request, response);
     }
-
 }

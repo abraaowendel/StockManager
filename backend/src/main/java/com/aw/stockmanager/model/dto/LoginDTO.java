@@ -1,4 +1,4 @@
-package com.aw.stockmanager.security.token;
+package com.aw.stockmanager.model.dto;
 
 public class LoginDTO {
     private String username;
