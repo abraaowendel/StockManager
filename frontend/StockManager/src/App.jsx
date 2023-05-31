@@ -1,13 +1,14 @@
+import { Home } from"./pages/home/index";
 import { Login } from"./pages/login/index";
 
-import './styles.css';
+import './main.css';
 
 function App() {
   return (
-      <div>
-        <Login/>
-      </div>
+      <>
+        <Home/>
+      </>
    )
 }
 
-export default App
+export default App;

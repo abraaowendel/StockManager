@@ -1,0 +1,45 @@
+.container--estoque{
+    max-width: 1100px;
+    margin: auto;
+    padding: 30px 0; 
+}
+.container--estoque h2{
+    color: #000;
+    font-size: 30px;
+    margin: 10px 0;
+}
+.container--estoque .table{
+    table-layout: fixed;
+    width: 100%;
+    border-collapse: collapse;
+}
+.table th, .table td{
+    padding: 10px;
+    text-align: start;
+    border: 1px solid #ccc;
+}
+
+.table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+.container--estoque .btns{
+    display: flex;
+}
+.container--estoque .btns button{
+    width: 50%;
+    padding: 5px 0;
+    margin:0 5px;
+}
+.container--estoque .btns button:hover{
+  opacity: 0.7;
+}
+.container--estoque .btns button:nth-child(1){
+    background-color: #069201;
+}
+.container--estoque .btns button:nth-child(2){
+    background-color: #c40404;
+}
+.container--estoque .btn--cadastrar-produto{
+    padding: 10px;
+    margin: 15px 0;
+}

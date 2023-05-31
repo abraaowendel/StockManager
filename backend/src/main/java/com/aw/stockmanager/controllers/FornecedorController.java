@@ -20,7 +20,7 @@ public class FornecedorController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<FornecedorDTO>> listarFornecedors(Pageable pageable){
+    public ResponseEntity<Page<FornecedorDTO>> listarFornecedores(Pageable pageable){
         return ResponseEntity.status(HttpStatus.OK).body(service.findAll(pageable));
     }
 
