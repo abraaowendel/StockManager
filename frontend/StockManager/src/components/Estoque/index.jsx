@@ -1,43 +1,63 @@
 import { useEffect, useState } from "react";
 import "./styles.css";
+import { api } from "../../api/api";
 
 export const Estoque = () => {
+  
   const [produtos, setProdutos] = useState([]);
+  const [categorias, setCategorias] = useState([]);
+  const [selectedValue, setSelectedValue] = useState("");
 
   useEffect(() => {
-    fazerRequisicao();
+    fazerRequisicaoCategorias();
   }, []);
 
-  const fazerRequisicao = async () => {
+  useEffect(() => {
+    fazerRequisicaoProdutos(selectedValue);
+  }, [selectedValue]);
 
-    const url = "http://localhost:8080/produtos";
-    
-    const token ="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhcGkuU3RvY2tNYW5hZ2VyIiwic3ViIjoidGVzdEB0ZXN0LmNvbSIsImlkIjoxLCJleHAiOjE2ODU2NDQ4OTV9.lHWIbzxueFCqTYXPZ7gbs68YiXZyzq-O7kxE7ueAgQo";
-
+  const fazerRequisicaoCategorias = async () => {
     try {
-      const response = await fetch(url, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          'Origin': 'http://localhost:5173',
-          Authorization: `Bearer ${token}`
-      }});
-
-      if (response.ok) {
-        const data = await response.json();
-        setProdutos(data.content);
-      } 
-      else {
-        console.log("Erro na requisição:", response.status);
-      }
+      const data = await api.fetchCategorias();
+      setCategorias(data);
     } catch (error) {
-      console.log("Erro na requisição:", error.message);
+      console.log(error);
     }
   };
 
+  const fazerRequisicaoProdutos = async () => {
+    try {
+        const data = await api.fetchProdutos(selectedValue);
+        if(data.content){
+          setProdutos(data.content);
+          return;
+        }
+        setProdutos(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  function handleChange(event) {
+    setSelectedValue(event.target.value);
+  }
+
   return (
     <div className="container--estoque">
-      <h2>Mercadorias</h2>
+      <div className="box">
+        <div className="box--left">
+          <h2>Mercadorias</h2>
+        </div> 
+        <div className="box--rigth">
+          <label htmlFor="select--estoque">Categorias: </label>
+          <select className="select--estoque" value={selectedValue} onChange={handleChange}>
+            <option value="Todas">Todas</option>
+            {categorias && categorias.map((item, index) => (
+              <option key={index} value={item.nome}>{item.nome}</option>
+            ))}
+          </select>
+        </div>
+      </div>
       <table className="table">
         <thead>
           <tr>
@@ -45,25 +65,24 @@ export const Estoque = () => {
             <th>Nome</th>
             <th>Preço</th>
             <th>Categoria</th>
-            <th style={{textAlign: "center"}}>Ações</th>
+            <th style={{ textAlign: "center" }}>Ações</th>
           </tr>
         </thead>
         <tbody>
-        {produtos && produtos.map((item, index) => (
+          {produtos && produtos.map((item, index) => (
             <tr key={index}>
               <td>{item.codigo}</td>
               <td>{item.nome}</td>
               <td>R$ {item.preco}</td>
               <td>{item.categoria.nome}</td>
               <td className="btns">
-                <button onClick={{}}>Editar</button>
-                <button onClick={{}}>Excluir</button>
+                <button>Editar</button>
+                <button>Excluir</button>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
-    <button className="btn--cadastrar-produto">Cadastrar Produto</button>
     </div>
   );
 };

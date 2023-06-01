@@ -1,86 +1,63 @@
 import { useState } from "react"
 import "../login/styles.css";
+import { useNavigate } from "react-router-dom";
+import { api } from "../../api/api";
 
 export const Login = () => {
 
-    const [username, setUserName] = useState("");
-    const [password, setPassword] = useState("");
+  const [username, setUserName] = useState("");
+  const [password, setPassword] = useState("");
+  const [errors, setErrors] = useState(false);
+  const navigate = useNavigate();
 
-    const [errors, setErrors] = useState(false);
+  const handleInputUsername = (event) => {
+    setUserName(event.target.value);
+  };
 
-    function handleInputUsername(event){
-        setUserName(event.target.value)
-    }
+  const handleInputPassword = (event) => {
+    setPassword(event.target.value);
+  };
 
-    function handleInputPassword(event){
-        setPassword(event.target.value)
-    }
+  const handleSetErrors = () => {
+    setErrors(true);
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault(); // Evita o comportamento padrão do formulário
     
-    function handleSetErrors(){
-        setErrors(true)
-    }
-
-    async function handleSubmit(event) {
-
-        event.preventDefault(); // Evita o comportamento padrão do formulário
-
-        if(username != "" || password != ""){
-          // Cria um objeto com os dados do formulário
-            const formData = {
-              username: username,
-              password: password
-            };
-            
-            try {
-              
-              const response = await fetch('http://localhost:8080/login', {
-                method: 'POST',
-                headers: {
-                  'Content-Type': 'application/json',
-                  'Origin': 'http://localhost:5173' // Adicione essa linha
-                },
-                body: JSON.stringify(formData)
-              });
-            
-              if (response.ok) {
-
-                const data = await response.json();
-                const token = data.token; 
-                console.log(token);
-
-              } 
-              else {
-                handleSetErrors();
-              }
-
-            } 
-            catch (error) {
-              console.log(error)
-            }
-
-        }
-        
+    if (username !== "" && password !== "") {
+      try {
+        const token = await api.fazerLogin(username, password);
+        navigate("/");
+      } catch (error) {
+        handleSetErrors();
+        console.log(error);
       }
+    }
+    else{
+      handleSetErrors();
+    }
+  };
 
-    return (
+  return (
 
-        <div className="container">
+      <div className="container">
 
-            <h1>Fazer Login</h1>  
+          <h1>Fazer Login</h1>  
 
-            <form>
-                <input type="text" placeholder="Username" value={username} onChange={handleInputUsername}/>
-                <input type="password" placeholder="Password" value={password} onChange={handleInputPassword}/>
-                <button onClick={handleSubmit}>Login</button>
-            </form>
+          <form>
+              <input type="text" placeholder="Username" value={username} onChange={handleInputUsername}/>
+              <input type="password" placeholder="Password" value={password} onChange={handleInputPassword}/>
+              <button onClick={handleSubmit}>Login</button>
+          </form>
 
-            {errors &&
-              <div className="errors">
-                Usuário ou Senha incorretos...
-              </div>
-            }
-    
-        </div>
-    )
+          {errors &&
+            <div className="errors">
+              Usuário ou Senha incorretos...
+            </div>
+          }
+  
+      </div>
+  )
 }
 

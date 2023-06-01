@@ -3,10 +3,34 @@
     margin: auto;
     padding: 30px 0; 
 }
+.container--estoque .box{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.box--rigth{
+    display: flex;
+    align-items: center;
+}
+.container--estoque .btn--cadastrar-produto{
+    padding: 10px;
+}
+.container--estoque .box--rigth label{
+    color: #000;
+    margin-right: 10px;
+}
 .container--estoque h2{
     color: #000;
     font-size: 30px;
     margin: 10px 0;
+}
+.container--estoque .select--estoque{
+    color: #000;
+    cursor: pointer;
+}
+.container--estoque .select--estoque option{
+    color: #000;
+    font-size: 15px;
 }
 .container--estoque .table{
     table-layout: fixed;
@@ -38,8 +62,4 @@
 }
 .container--estoque .btns button:nth-child(2){
     background-color: #c40404;
-}
-.container--estoque .btn--cadastrar-produto{
-    padding: 10px;
-    margin: 15px 0;
 }

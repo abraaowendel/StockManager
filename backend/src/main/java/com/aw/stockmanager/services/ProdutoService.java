@@ -13,6 +13,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 public class ProdutoService {
     private final ProdutoRepository repository;
@@ -24,6 +26,11 @@ public class ProdutoService {
     @Transactional(readOnly = true)
     public Page<ProdutoDTO> findAll(Pageable pageable) {
         return repository.findAll(pageable).map(ProdutoDTO::new);
+    }
+
+    @Transactional(readOnly = true)
+    public List<ProdutoDTO> findByCategory(String category, Pageable pageable) {
+        return repository.buscarPorCategoria(category, pageable).stream().map(ProdutoDTO::new).toList();
     }
     @Transactional(readOnly = true)
     public ProdutoDTO findById(Long id) {
@@ -62,4 +69,6 @@ public class ProdutoService {
             throw new DataBaseException("Essa ação compromete a integridade do banco de dados.");
         }
     }
+
+
 }

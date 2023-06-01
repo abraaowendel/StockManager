@@ -124,4 +124,19 @@ public class ProdutoDTO {
     public int hashCode() {
         return Objects.hash(id);
     }
+
+    @Override
+    public String toString() {
+        return "ProdutoDTO{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", descricao='" + descricao + '\'' +
+                ", codigo='" + codigo + '\'' +
+                ", preco=" + preco +
+                ", quantidade=" + quantidade +
+                ", dataDeCadastro=" + dataDeCadastro +
+                ", categoria=" + categoria +
+                ", fornecedor=" + fornecedor +
+                '}';
+    }
 }

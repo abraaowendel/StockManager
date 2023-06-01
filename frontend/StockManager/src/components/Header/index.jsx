@@ -11,7 +11,7 @@ export const Header = () => {
                 </div>
                 <div className="side--right">
                     <ul>
-                        <li>Produtos</li>
+                        <li>Mercadorias</li>
                         <li>Estoque</li>
                     </ul>
                 </div>

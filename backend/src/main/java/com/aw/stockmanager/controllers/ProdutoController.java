@@ -3,7 +3,6 @@ package com.aw.stockmanager.controllers;
 import com.aw.stockmanager.model.dto.ProdutoDTO;
 import com.aw.stockmanager.services.ProdutoService;
 import jakarta.validation.Valid;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,8 +20,14 @@ public class ProdutoController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<ProdutoDTO>> listarProdutos(Pageable pageable){
+    public ResponseEntity<?> listarProdutos(@RequestParam(required = false) String category, Pageable pageable){
+
+        if(category != null && !category.isEmpty()){
+            return ResponseEntity.status(HttpStatus.OK).body(service.findByCategory(category, pageable));
+        }
+
         return ResponseEntity.status(HttpStatus.OK).body(service.findAll(pageable));
+
     }
 
     @GetMapping("/{id}")
