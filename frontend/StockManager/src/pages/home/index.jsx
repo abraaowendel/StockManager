@@ -1,12 +1,12 @@
-import { Estoque } from "../../components/Estoque"
-import { Header } from "../../components/Header"
+import { Header } from "../../components/Header/index"
+import { Produtos } from "../../components/Produtos"
+import "./styles.css"
 
-// eslint-disable-next-line react/prop-types
 export const Home = () => {
     return(
         <div>
-            <Header />
-            <Estoque/>
+            <Header/>
+            <Produtos/>
         </div>    
     )
 }

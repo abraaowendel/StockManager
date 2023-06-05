@@ -1,9 +1,12 @@
-.container--estoque{
+.container--produtos{
     max-width: 1100px;
     margin: auto;
     padding: 30px 0; 
+    position: relative;
+    top: 0;
+    bottom: 0;
 }
-.container--estoque .box{
+.container--produtos .box{
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -12,27 +15,28 @@
     display: flex;
     align-items: center;
 }
-.container--estoque .btn--cadastrar-produto{
+.container--produtos .btn--cadastrar-produto{
+    margin: 0 0 0 10px;
     padding: 10px;
 }
-.container--estoque .box--rigth label{
+.container--produtos .box--rigth label{
     color: #000;
     margin-right: 10px;
 }
-.container--estoque h2{
+.container--produtos h2{
     color: #000;
     font-size: 30px;
     margin: 10px 0;
 }
-.container--estoque .select--estoque{
+.container--produtos .select--produtos{
     color: #000;
     cursor: pointer;
 }
-.container--estoque .select--estoque option{
+.container--produtos .select--produtos option{
     color: #000;
     font-size: 15px;
 }
-.container--estoque .table{
+.container--produtos .table{
     table-layout: fixed;
     width: 100%;
     border-collapse: collapse;
@@ -46,20 +50,24 @@
 .table tr:nth-child(even) {
     background-color: #f2f2f2;
 }
-.container--estoque .btns{
+.container--produtos .btns{
     display: flex;
 }
-.container--estoque .btns button{
+.container--produtos .btns button{
     width: 50%;
     padding: 5px 0;
     margin:0 5px;
 }
-.container--estoque .btns button:hover{
+.container--produtos .btns button:hover{
   opacity: 0.7;
 }
-.container--estoque .btns button:nth-child(1){
+.container--produtos .btns button:nth-child(1){
     background-color: #069201;
 }
-.container--estoque .btns button:nth-child(2){
+.container--produtos .btns button:nth-child(2){
     background-color: #c40404;
+}
+.no-scroll{
+    overflow: hidden;
+    height: calc(100vh - 60px);
 }

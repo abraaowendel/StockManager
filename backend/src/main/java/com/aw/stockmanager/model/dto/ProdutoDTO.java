@@ -126,7 +126,8 @@ public class ProdutoDTO {
     }
 
     @Override
-    public String toString() {
+    public String
+    toString() {
         return "ProdutoDTO{" +
                 "id=" + id +
                 ", nome='" + nome + '\'' +

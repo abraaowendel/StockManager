@@ -8,7 +8,6 @@ header{
     max-width: 1100px;    
     margin: auto;
     height: 60px; 
-    padding: 0 15px;
 }
 .side--left, .side--right ul{
     display: flex;
