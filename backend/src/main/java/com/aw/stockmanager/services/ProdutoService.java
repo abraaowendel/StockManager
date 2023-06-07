@@ -13,6 +13,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -41,15 +43,16 @@ public class ProdutoService {
     @Transactional
     public ProdutoDTO insert(ProdutoDTO dto) {
         var entity = new Produto();
-        BeanUtils.copyProperties(dto, entity);
+        copiarDTOtoEntity(dto, entity);
         repository.save(entity);
+        entity.setCodigo(gerarCodigoPorCategoria(entity));
         return new ProdutoDTO(entity);
     }
     @Transactional
     public ProdutoDTO update(Long id, ProdutoDTO dto) {
         try{
             var entity = repository.getReferenceById(id);
-            BeanUtils.copyProperties(dto, entity);
+            copiarDTOtoEntity(dto, entity);
             repository.save(entity);
             return new ProdutoDTO(entity);
         }
@@ -69,6 +72,45 @@ public class ProdutoService {
             throw new DataBaseException("Essa ação compromete a integridade do banco de dados.");
         }
     }
+    public void copiarDTOtoEntity(ProdutoDTO dto, Produto entity){
+        entity.setId(dto.getId());
+        entity.setNome(dto.getNome());
+        entity.setCodigo(dto.getCodigo());
+        entity.setPreco(dto.getPreco());
+        entity.setDescricao(dto.getDescricao());
+        entity.setCategoria(dto.getCategoria());
+        entity.setFornecedor(dto.getFornecedor());
+        entity.setQuantidade(dto.getQuantidade());
+        entity.setDataDeCadastro(LocalDate.now());
+    }
+    public String gerarCodigoPorCategoria(Produto produto) {
+        if (produto.getCategoria() != null) {
+            String prefixo = "";
 
+            switch (produto.getCategoria().getNome()) {
+                case "Eletrônicos" -> prefixo = "ELE";
+                case "Moda" -> prefixo = "MOD";
+                case "Acessórios" -> prefixo = "ACE";
+                case "Livros" -> prefixo = "LVR";
+                case "Beleza" -> prefixo = "BEL";
+                case "Alimentos" -> prefixo = "ALI";
+                case "Móveis" -> prefixo = "MOV";
+                case "Esportes" -> prefixo = "ESP";
+                case "Jogos" -> prefixo = "JOG";
+                case "Automóveis" -> prefixo = "AUT";
+            }
 
+            Long countByCategoria = repository.countByCategoria(produto.getCategoria());
+
+            if(countByCategoria <= 9){
+                prefixo += "00";
+            }
+            else {
+                prefixo += "0";
+            }
+
+            return prefixo + (countByCategoria + 1);
+        }
+        return null;
+    }
 }

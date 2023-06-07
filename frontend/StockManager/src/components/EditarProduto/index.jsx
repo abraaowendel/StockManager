@@ -17,6 +17,7 @@ export const EditarProduto = ({data, action, onSubmit}) => {
     function handleChangePreco (event) {
         setPreco(event.target.value);
     }
+    
     function handleSubmitForm(event){
         event.preventDefault();
         
@@ -25,12 +26,12 @@ export const EditarProduto = ({data, action, onSubmit}) => {
         data.descricao = descricao;
         data.preco = preco;
 
-        onSubmit(data);
+        onSubmit(data.id, data);
         action();
     }
     return (
         <div className="container--editar-produto" onSubmit={handleSubmitForm}>
-            <div className="box">
+            <div className="box-editar-produto">
                 <form action="">
                     <div className="box-edit--close">
                         <h2 style={{textAlign:"center"}}>Editar Mercadoria</h2>
@@ -43,7 +44,7 @@ export const EditarProduto = ({data, action, onSubmit}) => {
                     <label htmlFor="">Descrição</label>
                     <textarea name="" value={descricao} onChange={handleChangeDescricao}></textarea> 
                     <label htmlFor="">Preço unitário</label>
-                    <input type="number" step="0.05" min="0" placeholder="R$" value={preco} onChange={handleChangePreco}/>
+                    <input type="number" placeholder="R$" value={preco} onChange={handleChangePreco}/>
                     <button>Salvar Alterações</button>
                 </form>
             </div>

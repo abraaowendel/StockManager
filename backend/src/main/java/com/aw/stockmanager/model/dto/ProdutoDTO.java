@@ -3,6 +3,7 @@ package com.aw.stockmanager.model.dto;
 import com.aw.stockmanager.model.entities.Categoria;
 import com.aw.stockmanager.model.entities.Fornecedor;
 import com.aw.stockmanager.model.entities.Produto;
+import jakarta.persistence.PrePersist;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
 
@@ -15,7 +16,7 @@ public class ProdutoDTO {
     private String nome;
     @NotBlank(message = "Descrição inválida.")
     private String descricao;
-    @NotBlank(message = "Código inválido.")
+    @NotNull(message = "Código inválido.")
     private String codigo;
     @NotNull(message = "Preço não pode ser nulo.")
     @DecimalMin(value = "0.01", message = "Preço inválido.")
@@ -62,6 +63,22 @@ public class ProdutoDTO {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public LocalDate getDataDeCadastro() {
+        return dataDeCadastro;
+    }
+
+    public void setDataDeCadastro(LocalDate dataDeCadastro) {
+        this.dataDeCadastro = dataDeCadastro;
+    }
+
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
+    }
+
+    public void setFornecedor(Fornecedor fornecedor) {
+        this.fornecedor = fornecedor;
     }
 
     public String getNome() {
@@ -112,32 +129,5 @@ public class ProdutoDTO {
         return fornecedor;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        ProdutoDTO that = (ProdutoDTO) o;
-        return Objects.equals(id, that.id);
-    }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
-    }
-
-    @Override
-    public String
-    toString() {
-        return "ProdutoDTO{" +
-                "id=" + id +
-                ", nome='" + nome + '\'' +
-                ", descricao='" + descricao + '\'' +
-                ", codigo='" + codigo + '\'' +
-                ", preco=" + preco +
-                ", quantidade=" + quantidade +
-                ", dataDeCadastro=" + dataDeCadastro +
-                ", categoria=" + categoria +
-                ", fornecedor=" + fornecedor +
-                '}';
-    }
 }

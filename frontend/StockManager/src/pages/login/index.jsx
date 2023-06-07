@@ -1,13 +1,15 @@
 import { useState } from "react"
-import "../login/styles.css";
 import { useNavigate } from "react-router-dom";
-import { api } from "../../api/api";
+import useApi from "../../api/StockManagerAPI";
+import "../login/styles.css";
 
 export const Login = () => {
 
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
-  const [errors, setErrors] = useState(false);
+  const [errors, setErrors] = useState('');
+
+  const api = useApi();
   const navigate = useNavigate();
 
   const handleInputUsername = (event) => {
@@ -18,24 +20,28 @@ export const Login = () => {
     setPassword(event.target.value);
   };
 
-  const handleSetErrors = () => {
-    setErrors(true);
+  const handleSetErrors = (message) => {
+    setErrors(message);
   };
 
   const handleSubmit = async (event) => {
-    event.preventDefault(); // Evita o comportamento padrão do formulário
     
+    event.preventDefault(); 
+    handleSetErrors("");
+
     if (username !== "" && password !== "") {
-      try {
-        const token = await api.fazerLogin(username, password);
-        navigate("/");
-      } catch (error) {
-        handleSetErrors();
-        console.log(error);
-      }
+     
+        const token = await api.login(username, password);
+
+        if(!token.code){
+          navigate("/");
+        }
+
+        handleSetErrors(token.message)
+    
     }
     else{
-      handleSetErrors();
+      handleSetErrors("Preencha seu e-mail ou senha.");
     }
   };
 
@@ -51,9 +57,9 @@ export const Login = () => {
               <button onClick={handleSubmit}>Login</button>
           </form>
 
-          {errors &&
+          {errors != "" &&
             <div className="errors">
-              Usuário ou Senha incorretos...
+              {errors}
             </div>
           }
   

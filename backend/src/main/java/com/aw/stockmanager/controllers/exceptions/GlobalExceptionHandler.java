@@ -5,6 +5,7 @@ import com.aw.stockmanager.services.exceptions.DataBaseException;
 import com.aw.stockmanager.services.exceptions.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -40,7 +41,12 @@ public class GlobalExceptionHandler {
         var response = copiarDados(httpStatus, "Token expirado.");
         return ResponseEntity.status(httpStatus).body(response);
     }
-
+    @ExceptionHandler(AuthenticationException.class)
+    public ResponseEntity<ErrorDetails> handleAuthenticationException(AuthenticationException exception){
+        HttpStatus httpStatus = HttpStatus.UNAUTHORIZED;
+        var response = copiarDados(httpStatus, "Username ou Senha inválidos.");
+        return ResponseEntity.status(httpStatus).body(response);
+    }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorListResponse> handleMethodArgumentNotValidException(MethodArgumentNotValidException exception){
