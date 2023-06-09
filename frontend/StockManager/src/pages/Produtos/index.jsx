@@ -2,37 +2,40 @@ import "./styles.css";
 import useApi from "../../api/StockManagerAPI";
 import { useEffect, useState } from "react";
 import { EditarProduto } from "../../components/EditarProduto/index";
-import { ScrollButton } from "../ScrollButton";
-import { ExcluirProduto } from "../ExcluirProduto";
-import { CadastrarProduto } from "../CadastrarProduto";
+import { ScrollButton } from "../../components/ScrollButton";
+import { ExcluirProduto } from "../../components/ExcluirProduto";
+import { CadastrarProduto } from "../../components/CadastrarProduto";
+import { Loading } from "../../components/Loading";
 
 export const Produtos = () => {
-
   const [produtos, setProdutos] = useState([]);
   const [categorias, setCategorias] = useState([]);
   const [fornecedores, setFornecedores] = useState([]);
   const [selectedValueCategoria, setSelectedValueCategoria] = useState("");
   const [itemProduto, setItemProduto] = useState("");
-  const [mostrarModalEditarProduto, setMostrarModalEditarProduto] = useState(false);
-  const [mostrarModalExcluirProduto, setMostrarModalExcluirProduto] = useState(false);
-  const [mostrarModalCadastrarProduto, setMostrarModalCadastrarProduto] = useState(false);
+  const [mostrarModalEditarProduto, setMostrarModalEditarProduto] =
+    useState(false);
+  const [mostrarModalExcluirProduto, setMostrarModalExcluirProduto] =
+    useState(false);
+  const [mostrarModalCadastrarProduto, setMostrarModalCadastrarProduto] =
+    useState(false);
 
   const api = useApi();
 
   useEffect(() => {
     const getCategorias = async () => {
       const json = await api.getCategorias();
-      setCategorias(json)
-    }
-    getCategorias(); 
+      setCategorias(json);
+    };
+    getCategorias();
   }, []);
 
   useEffect(() => {
     const getFornecedores = async () => {
       const json = await api.getFornecedores();
-      setFornecedores(json)
-    }
-    getFornecedores(); 
+      setFornecedores(json);
+    };
+    getFornecedores();
   }, []);
 
   useEffect(() => {
@@ -55,6 +58,7 @@ export const Produtos = () => {
 
   const addProduto = async (json) => {
     const data = await api.addProduto(json);
+    getProdutos();
   };
 
   const deleteProduto = async (id) => {
@@ -72,13 +76,16 @@ export const Produtos = () => {
   function handleModalExcluirShow(item) {
     setItemProduto(item);
     setMostrarModalExcluirProduto(!mostrarModalExcluirProduto);
-  } 
+  }
   function handleModalCadastrarShow() {
     setMostrarModalCadastrarProduto(!mostrarModalCadastrarProduto);
   }
 
   const containerClass =
-    mostrarModalEditarProduto || mostrarModalExcluirProduto || mostrarModalCadastrarProduto
+    mostrarModalEditarProduto ||
+    mostrarModalExcluirProduto ||
+    mostrarModalCadastrarProduto ||
+    produtos.length === 0
       ? "container--produtos no-scroll"
       : "container--produtos";
 
@@ -103,7 +110,6 @@ export const Produtos = () => {
                 </option>
               ))}
           </select>
-          <button className="btn--cadastrar-produto" onClick={handleModalCadastrarShow}>Cadastrar Produto</button>
         </div>
       </div>
       <table className="table">
@@ -136,10 +142,11 @@ export const Produtos = () => {
             ))}
         </tbody>
       </table>
+      {produtos.length === 0 && <Loading />}
       {mostrarModalCadastrarProduto && (
         <CadastrarProduto
           action={handleModalCadastrarShow}
-          data={fornecedores}
+          data={{ fornecedores, categorias }}
           onSubmit={addProduto}
         />
       )}
@@ -158,7 +165,7 @@ export const Produtos = () => {
         />
       )}
       {!mostrarModalEditarProduto && <ScrollButton />}
-      {}
     </div>
   );
 };
+export default Produtos;

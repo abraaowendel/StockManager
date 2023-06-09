@@ -1,13 +1,13 @@
-import { useState } from "react"
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useApi from "../../api/StockManagerAPI";
-import "../login/styles.css";
+import "./styles.css";
 
-export const Login = () => {
-
+const Login = () => {
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
-  const [errors, setErrors] = useState('');
+  const [errors, setErrors] = useState("");
+  const [disable, setDisable] = useState(false);
 
   const api = useApi();
   const navigate = useNavigate();
@@ -25,45 +25,48 @@ export const Login = () => {
   };
 
   const handleSubmit = async (event) => {
-    
-    event.preventDefault(); 
+    event.preventDefault();
+    setDisable(true)
     handleSetErrors("");
 
     if (username !== "" && password !== "") {
-     
-        const token = await api.login(username, password);
+      const token = await api.login(username, password);
 
-        if(!token.code){
-          navigate("/");
-        }
+      if (!token.code) {
+        navigate("/mercadorias");
+      }
 
-        handleSetErrors(token.message)
-    
-    }
-    else{
+      handleSetErrors(token.message);
+    } else {
       handleSetErrors("Preencha seu e-mail ou senha.");
     }
   };
 
   return (
+    <div className="container">
+      <h1>Fazer Login</h1>
+      <form>
+        <input
+          type="text"
+          placeholder="Username"
+          value={username}
+          onChange={handleInputUsername}
+          required
+          disabled={disable}/>
 
-      <div className="container">
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={handleInputPassword}
+          required
+          disabled={disable}/>
 
-          <h1>Fazer Login</h1>  
+        <button onClick={handleSubmit} disabled={disable}>Login</button>
+      </form>
 
-          <form>
-              <input type="text" placeholder="Username" value={username} onChange={handleInputUsername}/>
-              <input type="password" placeholder="Password" value={password} onChange={handleInputPassword}/>
-              <button onClick={handleSubmit}>Login</button>
-          </form>
-
-          {errors != "" &&
-            <div className="errors">
-              {errors}
-            </div>
-          }
-  
-      </div>
-  )
-}
-
+      {errors != "" && <div className="errors">{errors}</div>}
+    </div>
+  );
+};
+export default Login;

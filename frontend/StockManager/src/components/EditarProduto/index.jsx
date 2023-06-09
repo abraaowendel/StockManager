@@ -22,29 +22,33 @@ export const EditarProduto = ({data, action, onSubmit}) => {
         event.preventDefault();
         
         // FALTA FAZER VALIDAÇÕES
-        data.nome = nome;
-        data.descricao = descricao;
-        data.preco = preco;
-
-        onSubmit(data.id, data);
-        action();
+       
+        if(nome !== "" && descricao !== "" && preco !== ""){
+            data.nome = nome;
+            data.descricao = descricao;
+            data.preco = preco;
+            onSubmit(data.id, data);
+            action();
+            return;
+        }
+       
     }
     return (
         <div className="container--editar-produto" onSubmit={handleSubmitForm}>
             <div className="box-editar-produto">
-                <form action="">
+                <form action="PUT">
                     <div className="box-edit--close">
                         <h2 style={{textAlign:"center"}}>Editar Mercadoria</h2>
                         <button onClick={action}>Cancelar</button>
                     </div>
                     <label htmlFor="" >Código</label>
-                    <input type="text" disabled value={codigo}/>
+                    <input type="text" disabled value={codigo} required/>
                     <label htmlFor="">Nome</label>
-                    <input type="text" value={nome} onChange={handleChangeNome}/> 
+                    <input type="text" value={nome} onChange={handleChangeNome} required/> 
                     <label htmlFor="">Descrição</label>
-                    <textarea name="" value={descricao} onChange={handleChangeDescricao}></textarea> 
+                    <textarea name="" value={descricao} onChange={handleChangeDescricao} required></textarea> 
                     <label htmlFor="">Preço unitário</label>
-                    <input type="number" placeholder="R$" value={preco} onChange={handleChangePreco}/>
+                    <input type="number" placeholder="R$" value={preco} onChange={handleChangePreco} required/>
                     <button>Salvar Alterações</button>
                 </form>
             </div>

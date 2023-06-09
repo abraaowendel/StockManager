@@ -13,6 +13,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 public class FornecedorService {
     private final FornecedorRepository repository;
@@ -22,8 +24,8 @@ public class FornecedorService {
     }
 
     @Transactional(readOnly = true)
-    public Page<FornecedorDTO> findAll(Pageable pageable) {
-        return repository.findAll(pageable).map(FornecedorDTO::new);
+    public List<FornecedorDTO> findAll() {
+        return repository.findAll().stream().map(FornecedorDTO::new).toList();
     }
     @Transactional(readOnly = true)
     public FornecedorDTO findById(Long id) {

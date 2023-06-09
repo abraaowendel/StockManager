@@ -1,18 +1,15 @@
 import "./main.css";
-import { useState } from 'react';
-import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
-import { Home } from './pages/home';
-import { Login } from './pages/login';
+import { MainRoutes } from "./routers/MainRoutes";
+import { Header } from "./components/Header";
 
 function App() {
-  const [token, setToken] = useState('');
 
   return (
-      <Routes>
-        <Route path='/' element={<Home/>}/>
-        <Route path='/login' element={<Login/>}/>
-      </Routes>
- );
+    <>
+      <Header/>
+      <MainRoutes />
+    </>
+  );
 }
 
 export default App;

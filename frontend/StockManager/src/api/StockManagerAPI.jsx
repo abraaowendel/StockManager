@@ -34,35 +34,17 @@ const apiFetchPost = async (endpoint, body) => {
       },
       body: JSON.stringify(body)
     });
-  
     if (response.ok) {
       const data = await response.json();
       return data;
     } 
-    else {
-      throw new Error("Erro na requisição: " + response.status);
-    }
-}
-
-const apiFetchLogin = async (endpoint, body) => {
-
-    const response = await fetch(`${API_URL}${endpoint}`,{
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Origin: "http://localhost:5173",
-      },
-      body: JSON.stringify(body)
-    });
-
-    if (response.ok) {
+    else if(response.status === 401){
       const data = await response.json();
       return data;
-    } 
+    }
     else {
       throw new Error("Erro na requisição: " + response.status);
     }
-  
 }
 
 //PUT
@@ -108,8 +90,8 @@ const apiFetchDelete = async (endpoint) => {
 export const StockManagerAPI = {
 
   login: async (username, password) => {
-      const json = await apiFetchLogin("/login", {username, password})
-      return json
+      const json = await apiFetchPost("/login", {username, password})
+      return json;
   },
   getCategorias: async () => {
       const json = await apiFetchGet("/categorias");

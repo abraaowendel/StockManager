@@ -3,11 +3,11 @@ package com.aw.stockmanager.controllers;
 import com.aw.stockmanager.model.dto.FornecedorDTO;
 import com.aw.stockmanager.services.FornecedorService;
 import jakarta.validation.Valid;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/fornecedores")
@@ -20,8 +20,8 @@ public class FornecedorController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<FornecedorDTO>> listarFornecedores(Pageable pageable){
-        return ResponseEntity.status(HttpStatus.OK).body(service.findAll(pageable));
+    public ResponseEntity<List<FornecedorDTO>> listarFornecedores(){
+        return ResponseEntity.status(HttpStatus.OK).body(service.findAll());
     }
 
     @GetMapping("/{id}")

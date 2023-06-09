@@ -37,7 +37,7 @@ public class TestConfig implements CommandLineRunner {
         userRepository.save(user);
 
         // Categorias
-        Categoria categoriaTecnologia = new Categoria(null, "Tecnologia");
+        Categoria categoriaTecnologia = new Categoria(null, "Eletrônicos");
         Categoria categoriaModa = new Categoria(null, "Moda");
         Categoria categoriaAcessorios = new Categoria(null, "Acessórios");
         Categoria categoriaLivros = new Categoria(null, "Livros");

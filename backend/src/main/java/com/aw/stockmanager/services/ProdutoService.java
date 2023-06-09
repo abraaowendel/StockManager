@@ -103,13 +103,9 @@ public class ProdutoService {
             Long countByCategoria = repository.countByCategoria(produto.getCategoria());
 
             if(countByCategoria <= 9){
-                prefixo += "00";
+                return prefixo + "00" + countByCategoria;
             }
-            else {
-                prefixo += "0";
-            }
-
-            return prefixo + (countByCategoria + 1);
+            return prefixo + "0" + countByCategoria;
         }
         return null;
     }
