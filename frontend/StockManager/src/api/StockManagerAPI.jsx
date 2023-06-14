@@ -93,6 +93,30 @@ export const StockManagerAPI = {
       const json = await apiFetchPost("/login", {username, password})
       return json;
   },
+  getEstados: async() => {
+    const response = await fetch("https://servicodados.ibge.gov.br/api/v1/localidades/estados?orderBy=nome",{
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json"
+      }
+    });
+    if(response.ok){
+      const json = await response.json();
+      return json;
+    }
+  },
+  getCidades: async(UF) => {
+    const response = await fetch(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${UF}/municipios`,{
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json"
+      }
+    });
+    if(response.ok){
+      const json = await response.json();
+      return json;
+    }
+  },
   getCategorias: async () => {
       const json = await apiFetchGet("/categorias");
       return json;
@@ -119,7 +143,19 @@ export const StockManagerAPI = {
   getFornecedores: async () =>{
     const json = await apiFetchGet(`/fornecedores`);
     return json;
-  }
+  },
+  updateFornecedores: async (id, body) => {
+    const json = await apiFetchPut(`/fornecedores/${id}`, body);
+    return json;
+  },
+  addFornecedores: async (body) => {
+    const json = await apiFetchPost("/fornecedores", body);
+    return json;
+  },
+  deleteFornecedores: async (id) => {
+    const json = await apiFetchDelete(`/fornecedores/${id}`);
+    return json;
+  },
 }
 
 

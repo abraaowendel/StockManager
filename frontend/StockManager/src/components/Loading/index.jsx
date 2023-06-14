@@ -1,9 +1,9 @@
-import "./styles.css";
+import * as C from "./styled";
 
 export const Loading = () => {
     return(
-        <div className="container--loading">
-            <div className="loading"></div>
-        </div>
+        <C.Container>
+            <C.Loading></C.Loading>
+        </C.Container>
     )
 }

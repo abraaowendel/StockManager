@@ -1,12 +1,14 @@
-.container--excluir-produto{
+import styled from 'styled-components';
+
+export const Container = styled.div`
     position: absolute;
     top: 0;
     right: 0;
     left: 0;
     bottom: 0;
     background-color: #ffffffaa;
-}
-.container--excluir-produto .box-excluir-produto{
+`;
+export const Box = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
@@ -18,17 +20,31 @@
     background-color: #fff;
     border-radius: 10px;
     margin-top: 50px;
-}
-.container--excluir-produto h3{
+`;
+export const Title = styled.h3`
     font-size: 20px;
     color: #26748A;
     text-align: center;
-}
-.container--excluir-produto .btns {
+`;
+export const Btns = styled.div`
+    display: flex;
+    justify-content: space-between;
     width: 100%;
     padding: 0 30px;
     margin-top: 10px;
-}
-.container--excluir-produto .btns button{
+`;
+export const Button = styled.div`
+    width: 100%;
     padding: 8px;
-}
+    margin:0 10px;
+    font-weight: bold;
+    color: #fff;
+    text-align: center;
+    border-radius: 3px;
+    background-color: ${(props) => props.bg};
+    cursor: pointer;
+    &:hover{
+        opacity: .8;
+    }
+`;
+

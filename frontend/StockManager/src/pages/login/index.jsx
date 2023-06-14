@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useApi from "../../api/StockManagerAPI";
-import "./styles.css";
+import * as C from "./styled";
 
 const Login = () => {
   const [username, setUserName] = useState("");
@@ -37,16 +37,19 @@ const Login = () => {
       }
 
       handleSetErrors(token.message);
+
     } else {
       handleSetErrors("Preencha seu e-mail ou senha.");
     }
+    setDisable(false)
+
   };
 
   return (
-    <div className="container">
-      <h1>Fazer Login</h1>
-      <form>
-        <input
+    <C.Container>
+      <C.Title>Fazer Login</C.Title>
+      <C.Form>
+        <C.Input
           type="text"
           placeholder="Username"
           value={username}
@@ -54,7 +57,7 @@ const Login = () => {
           required
           disabled={disable}/>
 
-        <input
+        <C.Input
           type="password"
           placeholder="Password"
           value={password}
@@ -62,11 +65,14 @@ const Login = () => {
           required
           disabled={disable}/>
 
-        <button onClick={handleSubmit} disabled={disable}>Login</button>
-      </form>
+        <C.Button onClick={handleSubmit} disabled={disable}>Login</C.Button>
+      </C.Form>
 
-      {errors != "" && <div className="errors">{errors}</div>}
-    </div>
+      {errors != "" && 
+      <C.ShowErrors>
+        {errors}
+      </C.ShowErrors>}
+    </C.Container>
   );
 };
 export default Login;

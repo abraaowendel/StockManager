@@ -1,5 +1,5 @@
+import * as C from "./styled";
 import { useState } from "react";
-import "./styles.css";
 
 export const EditarProduto = ({data, action, onSubmit}) => {
 
@@ -20,9 +20,7 @@ export const EditarProduto = ({data, action, onSubmit}) => {
     
     function handleSubmitForm(event){
         event.preventDefault();
-        
-        // FALTA FAZER VALIDAÇÕES
-       
+               
         if(nome !== "" && descricao !== "" && preco !== ""){
             data.nome = nome;
             data.descricao = descricao;
@@ -34,25 +32,39 @@ export const EditarProduto = ({data, action, onSubmit}) => {
        
     }
     return (
-        <div className="container--editar-produto" onSubmit={handleSubmitForm}>
-            <div className="box-editar-produto">
-                <form action="PUT">
-                    <div className="box-edit--close">
-                        <h2 style={{textAlign:"center"}}>Editar Mercadoria</h2>
-                        <button onClick={action}>Cancelar</button>
-                    </div>
-                    <label htmlFor="" >Código</label>
-                    <input type="text" disabled value={codigo} required/>
-                    <label htmlFor="">Nome</label>
-                    <input type="text" value={nome} onChange={handleChangeNome} required/> 
-                    <label htmlFor="">Descrição</label>
-                    <textarea name="" value={descricao} onChange={handleChangeDescricao} required></textarea> 
-                    <label htmlFor="">Preço unitário</label>
-                    <input type="number" placeholder="R$" value={preco} onChange={handleChangePreco} required/>
-                    <button>Salvar Alterações</button>
-                </form>
-            </div>
-        </div>    
+        <C.Container>
+            <C.Box>
+                <C.Form action="PUT" onSubmit={handleSubmitForm}>
+                    <C.ButtonCloseArea>
+                      <C.Title style={{textAlign:"center"}}>Editar Mercadoria</C.Title>
+                      <C.Button bg="#FF0000" onClick={action}>Cancelar</C.Button>
+                    </C.ButtonCloseArea>
+
+                    <C.FormGroup>
+                        <C.Label htmlFor="" >Código</C.Label>
+                        <C.Input type="text" disabled value={codigo} required style={{backgroundColor: "#ecece"}}/>
+                    </C.FormGroup>
+                    <C.FormGroup>
+                        <C.Label htmlFor="">Nome</C.Label>
+                        <C.Input type="text" value={nome} onChange={handleChangeNome} required/> 
+                    </C.FormGroup> 
+                    <C.FormGroup>   
+                        <C.Label  htmlFor="">Descrição</C.Label>
+                        <C.Textarea name="" value={descricao} onChange={handleChangeDescricao} required></C.Textarea> 
+                    </C.FormGroup>
+                    <C.FormGroup>
+                        <C.Label  htmlFor="">Preço unitário</C.Label>
+                        <C.InputGroup>
+                            <C.InputSimbol>R$</C.InputSimbol>
+                            <C.Input type="number" placeholder="R$" value={preco} onChange={handleChangePreco} required/>
+                        </C.InputGroup>   
+                    </C.FormGroup>
+                    <C.ButtonAddArea>
+                        <C.Button bg="#069201" mg="15px">Salvar Alterações</C.Button>
+                    </C.ButtonAddArea>
+                </C.Form>
+            </C.Box>
+        </C.Container>    
     );
 
 }

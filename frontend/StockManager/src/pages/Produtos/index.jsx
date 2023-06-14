@@ -1,10 +1,11 @@
-import "./styles.css";
+
+import * as C from "./styled";
 import useApi from "../../api/StockManagerAPI";
 import { useEffect, useState } from "react";
 import { EditarProduto } from "../../components/EditarProduto/index";
-import { ScrollButton } from "../../components/ScrollButton";
 import { ExcluirProduto } from "../../components/ExcluirProduto";
 import { CadastrarProduto } from "../../components/CadastrarProduto";
+import { ScrollButton } from "../../components/ScrollButton";
 import { Loading } from "../../components/Loading";
 
 export const Produtos = () => {
@@ -13,12 +14,9 @@ export const Produtos = () => {
   const [fornecedores, setFornecedores] = useState([]);
   const [selectedValueCategoria, setSelectedValueCategoria] = useState("");
   const [itemProduto, setItemProduto] = useState("");
-  const [mostrarModalEditarProduto, setMostrarModalEditarProduto] =
-    useState(false);
-  const [mostrarModalExcluirProduto, setMostrarModalExcluirProduto] =
-    useState(false);
-  const [mostrarModalCadastrarProduto, setMostrarModalCadastrarProduto] =
-    useState(false);
+  const [mostrarModalEditarProduto, setMostrarModalEditarProduto] = useState(false);
+  const [mostrarModalExcluirProduto, setMostrarModalExcluirProduto] = useState(false);
+  const [mostrarModalCadastrarProduto, setMostrarModalCadastrarProduto] = useState(false);
 
   const api = useApi();
 
@@ -87,61 +85,65 @@ export const Produtos = () => {
     mostrarModalCadastrarProduto ||
     produtos.length === 0
       ? "container--produtos no-scroll"
-      : "container--produtos";
+      : "";
 
   return (
-    <div className={containerClass}>
-      <div className="box">
-        <div className="box--left">
-          <h2>Mercadorias</h2>
-        </div>
-        <div className="box--rigth">
-          <label htmlFor="select--produtos">Categorias: </label>
-          <select
-            className="select--produtos"
+    <C.Container className={containerClass}>
+      <C.Box >
+        <C.BoxSideLeft >
+          <C.Title>Mercadorias</C.Title>
+        </C.BoxSideLeft>
+        <C.BoxSideRigth>
+          <C.Label htmlFor="select--produtos">Categorias: </C.Label>
+          <C.Select
+            id="select--produtos"
             value={selectedValueCategoria}
-            onChange={handleChange}
-          >
-            <option value="Todas">Todas</option>
+            onChange={handleChange}>
+
+            <C.Option value="Todas">Todas</C.Option>
             {categorias &&
               categorias.map((item, index) => (
-                <option key={index} value={item.nome}>
+                <C.Option key={index} value={item.nome}>
                   {item.nome}
-                </option>
+                </C.Option>
               ))}
-          </select>
-        </div>
-      </div>
-      <table className="table">
-        <thead>
-          <tr>
-            <th>Código</th>
-            <th>Nome</th>
-            <th>Preço</th>
-            <th>Categoria</th>
-            <th style={{ textAlign: "center" }}>Ações</th>
-          </tr>
-        </thead>
-        <tbody>
+          </C.Select>
+          <C.Button onClick={handleModalCadastrarShow}>Cadastrar Mercadoria</C.Button>
+        </C.BoxSideRigth>
+      </C.Box>
+      <C.Table>
+        <C.TableCabecalho>
+          <C.TableLine>
+            <C.TableTitle>Cód.</C.TableTitle>
+            <C.TableTitle>Nome</C.TableTitle>
+            <C.TableTitle>Preço</C.TableTitle>
+            <C.TableTitle>Categoria</C.TableTitle>
+            <C.TableTitle style={{ textAlign: "center" }}>Ações</C.TableTitle>
+          </C.TableLine>
+        </C.TableCabecalho>
+        <C.TableBody>
           {produtos &&
             produtos.map((item, index) => (
-              <tr key={index}>
-                <td>{item.codigo}</td>
-                <td>{item.nome}</td>
-                <td>R$ {item.preco}</td>
-                <td>{item.categoria.nome}</td>
-                <td className="btns">
-                  <button onClick={() => handleModalEditarShow(item)}>
-                    Editar
-                  </button>
-                  <button onClick={() => handleModalExcluirShow(item)}>
-                    Excluir
-                  </button>
-                </td>
-              </tr>
+              <C.TableLine key={index}>
+                <C.TableColumn>{item.codigo}</C.TableColumn>
+                <C.TableColumn>{item.nome}</C.TableColumn>
+                <C.TableColumn>R$ {(item.preco).toFixed(2)}</C.TableColumn>
+                <C.TableColumn>{item.categoria.nome}</C.TableColumn>
+                <C.TableColumn>
+                  <C.Btns>
+                    <C.ButtonAction bg="#069201" onClick={() => handleModalEditarShow(item)}>
+                      Editar
+                    </C.ButtonAction>
+                    <C.ButtonAction bg="#c40404" onClick={() => handleModalExcluirShow(item)}>
+                      Excluir
+                    </C.ButtonAction>
+                  </C.Btns>
+                </C.TableColumn>
+              </C.TableLine>
             ))}
-        </tbody>
-      </table>
+        </C.TableBody>
+      </C.Table>
+
       {produtos.length === 0 && <Loading />}
       {mostrarModalCadastrarProduto && (
         <CadastrarProduto
@@ -165,7 +167,7 @@ export const Produtos = () => {
         />
       )}
       {!mostrarModalEditarProduto && <ScrollButton />}
-    </div>
+    </C.Container>
   );
 };
 export default Produtos;

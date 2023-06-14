@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "./styles.css";
+import * as C from "./styled";
 
 export const CadastrarProduto = ({data, action, onSubmit}) => {
 
@@ -57,63 +57,64 @@ export const CadastrarProduto = ({data, action, onSubmit}) => {
     }
 
     return(
-        <div className="container--cadastrar-produto">
-        <div className="box-cadastrar-produto">
-          <form action="POST" onSubmit={handleSubmitForm}>
+      <C.Container>
+        <C.Box>
+          <C.Form action="POST" onSubmit={handleSubmitForm}>
+    
+            <C.ButtonCloseArea>
+              <C.Title>Cadastrar Mercadoria</C.Title>
+              <C.Button bg="#FF0000" onClick={action}>Cancelar</C.Button>
+            </C.ButtonCloseArea>
       
-            <div className="box-add--close">
-              <h2>Cadastrar Mercadoria</h2>
-              <button onClick={action}>Cancelar</button>
-            </div>
+            <C.FormGroup>
+              <C.Label htmlFor="nome">Nome</C.Label>
+              <C.Input type="text" id="nome" value={nome} onChange={handleChangeNome} required/>
+            </C.FormGroup>
       
-            <div className="form-group">
-              <label htmlFor="nome">Nome</label>
-              <input type="text" id="nome" value={nome} onChange={handleChangeNome} required/>
-            </div>
+            <C.FormGroup>
+              <C.Label htmlFor="descricao">Descrição</C.Label>
+              <C.Input id="descricao" value={descricao} onChange={handleChangeDescricao} required></C.Input>
+            </C.FormGroup>
       
-            <div className="form-group">
-              <label htmlFor="descricao">Descrição</label>
-              <textarea id="descricao" value={descricao} onChange={handleChangeDescricao} required></textarea>
-            </div>
+            <C.FormGroup>
+              <C.Label htmlFor="preco">Preço unitário</C.Label>
+              <C.InputGroup>
+                <C.InputSimbol>R$</C.InputSimbol>
+                <C.Input type="number" id="preco" step="0.05" min="0.0" placeholder="0.00" value={preco} onChange={handleChangePreco} required/>
+              </C.InputGroup>
+            </C.FormGroup>
       
-            <div className="form-group">
-              <label htmlFor="preco">Preço unitário</label>
-                <div className="input-group">
-                    <span className="input-group-symbol">R$</span>
-                    <input type="number" id="preco" step="0.05" min="0.0" placeholder="0.00" value={preco} onChange={handleChangePreco} required/>
-                </div>
-            </div>
-      
-            <div className="form-group">
-              <label htmlFor="categoria">Categoria</label>
-              <select className="select--produtos" id="categoria" value={selectedValueCategoria} onChange={handleChangeCategoria}>
-                <option value=""></option>
+            <C.FormGroup>
+              <C.Label htmlFor="categoria">Categoria</C.Label>
+              <C.Select id="categoria" value={selectedValueCategoria} onChange={handleChangeCategoria}>
+                <C.Option value=""></C.Option>
                 {data.categorias &&
                   data.categorias.map((item, index) => (
-                    <option key={index} value={JSON.stringify(item)}>
+                    <C.Option key={index} value={JSON.stringify(item)}>
                       {item.nome}
-                    </option>
+                    </C.Option>
                   ))}
-              </select>
-            </div>
+              </C.Select>
+            </C.FormGroup>
       
-            <div className="form-group">
-              <label htmlFor="fornecedor">Fornecedor</label>
-              <select className="select--produtos" id="fornecedor" value={selectedValueFornecedor} onChange={handleChangeFornecedor}>
-              <option value=""></option>
+            <C.FormGroup>
+              <C.Label htmlFor="fornecedor">Fornecedor</C.Label>
+              <C.Select id="fornecedor" value={selectedValueFornecedor} onChange={handleChangeFornecedor}>
+              <C.Option value=""></C.Option>
                 {data.fornecedores &&
                   data.fornecedores.map((item, index) => (
-                    <option key={index} value={JSON.stringify(item)} >
+                    <C.Option key={index} value={JSON.stringify(item)} >
                       {item.nome}
-                    </option>
+                    </C.Option>
                   ))}
-              </select>
-            </div>
-      
-            <button className="btn-cadastrar-produto">Cadastrar Produto</button>
-          </form>
-        </div>
-      </div>
+              </C.Select>
+            </C.FormGroup>
+            <C.ButtonAddArea>
+              <C.Button bg="#069201" mg= "10px">Cadastrar Produto</C.Button>
+            </C.ButtonAddArea>
+          </C.Form>
+        </C.Box>
+      </C.Container>
       
     )
 

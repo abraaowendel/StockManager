@@ -1,4 +1,4 @@
-import "./styles.css";
+import * as C from "./styled";
 
 export const ExcluirProduto = ({action, data, onSubmit}) => {
 
@@ -8,14 +8,14 @@ export const ExcluirProduto = ({action, data, onSubmit}) => {
     }
     
     return(
-      <div className="container--excluir-produto">
-        <div className="box-excluir-produto">
-            <h3>Tem certeza?</h3>
-            <div className="btns">
-                <button onClick={handleModalExcluir}>Sim</button>
-                <button onClick={action}>Não</button>
-            </div>
-        </div>
-      </div>
+      <C.Container>
+        <C.Box>
+            <C.Title>Tem certeza?</C.Title>
+            <C.Btns>
+                <C.Button bg="#069201" onClick={handleModalExcluir}>Sim</C.Button>
+                <C.Button bg="#c40404" onClick={action}>Não</C.Button>
+            </C.Btns>
+        </C.Box>
+      </C.Container>
     )
 }

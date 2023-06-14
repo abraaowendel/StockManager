@@ -1,20 +1,19 @@
-import { Link } from "react-router-dom"
+import * as C from "./styled";
 import Logo from "../../assets/images/logo.svg"
-import "./styles.css"
-import { useState } from "react"
+import { Link } from "react-router-dom"
 
 export const Header = () => {
 
     return(
       <>
-         <header>
-            <div className="sides">
-                <div className="side--left">
-                    <img src={Logo} alt=""/>
-                    <h2>StockManager</h2>
-                </div>
-                <div className="side--right">
-                    <ul>
+         <C.HeaderArea>
+            <C.Sides>
+                <C.SideLeft>
+                    <C.Img src={Logo} alt=""/>
+                    <C.Title>StockManager</C.Title>
+                </C.SideLeft>
+                <C.SideRight>
+                    <C.Ul>
                         <Link to="/mercadorias" style={{
                             color: "#fff",
                             margin: "0 20px",
@@ -37,10 +36,10 @@ export const Header = () => {
                             onMouseOver={(e) => {e.target.style.color = '#ccc';}}
                             onMouseLeave={(e) => {e.target.style.color = '#fff';}}
                             >Fornecedores</Link>
-                    </ul>
-                </div>
-            </div>
-        </header> 
+                    </C.Ul>
+                </C.SideRight>
+            </C.Sides>
+        </C.HeaderArea> 
       
       </>
     )

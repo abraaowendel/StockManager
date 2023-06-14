@@ -80,6 +80,7 @@ public class TestConfig implements CommandLineRunner {
                 fornecedorBelezaEstilo, fornecedorDeliciasGourmet, fornecedorEsportesRad, fornecedorMoveisLuxo,
                 fornecedorJogosInc, fornecedorAutoLuxo
         ));
+        
         List<Produto> produtos = new ArrayList<>();
 
         // Tecnologia
