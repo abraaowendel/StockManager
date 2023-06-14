@@ -84,7 +84,7 @@ export const ButtonAction = styled.button`
     cursor: pointer;
     width: 50%;
     margin:0 5px;
-    padding: 8px 5px;
+    padding: 8px 10px;
     border-radius: 5px;
     color: #fff;
     border: 0;

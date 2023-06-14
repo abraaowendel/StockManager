@@ -30,6 +30,7 @@ export const ButtonCloseArea = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin-bottom: 20px;
 `;
 
 export const ButtonAddArea = styled.div`
@@ -63,7 +64,7 @@ export const Title = styled.h2`
 `;
 
 export const FormGroup = styled.div`
-  margin-top: 15px;
+  margin-top: 10px;
   position: relative;
 `;
 
@@ -133,7 +134,7 @@ export const Textarea = styled.textarea`
 `;
 
 export const Select = styled.select`
-  min-width: 200px;
+    min-width: ${(props) => !props? "230px": "auto"};
 `;
 
 export const Option = styled.option``;

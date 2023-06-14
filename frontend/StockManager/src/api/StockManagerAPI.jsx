@@ -1,5 +1,5 @@
 const API_URL = "http://localhost:8080";
-const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhcGkuU3RvY2tNYW5hZ2VyIiwic3ViIjoidGVzdEB0ZXN0LmNvbSIsImlkIjoxLCJleHAiOjE2ODczMDM5MzR9.3l5UnNSAfuEg9UZyXSWOs7S_j2ElEH_q_QctBw4X9UU";
+const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhcGkuU3RvY2tNYW5hZ2VyIiwic3ViIjoidGVzdEB0ZXN0LmNvbSIsImlkIjoxLCJleHAiOjE2ODgwNDk3ODh9.IJBCXJSO6oSAo3f_w57tyHWXjM9iPnKFkRsQnleGOt4";
 
 
 //GET
@@ -58,7 +58,6 @@ const apiFetchPut = async (endpoint, body) => {
       },
       body: JSON.stringify(body)
     });
-
     if (response.ok) {
       const data = await response.json();
       return data;

@@ -90,7 +90,7 @@ public class TestConfig implements CommandLineRunner {
         produtos.add(new Produto(null, "Notebook", "Um poderoso notebook para trabalho e entretenimento.",
                 "ELE002", 2999.99, 30, LocalDate.parse("2022-06-01"), categoriaTecnologia,
                 fornecedorTecnoBrasil));
-        produtos.add(new Produto(null, "Smart TV", "Uma televisão inteligente com alta definição.",
+        produtos.add(new Produto(null, "Smart TV", "Uma televisã o inteligente com alta definição.",
                 "ELE003", 1999.99, 20, LocalDate.parse("2022-06-02"), categoriaTecnologia,
                 fornecedorTecnoBrasil));
 

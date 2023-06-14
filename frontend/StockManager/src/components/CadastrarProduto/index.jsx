@@ -86,7 +86,7 @@ export const CadastrarProduto = ({data, action, onSubmit}) => {
       
             <C.FormGroup>
               <C.Label htmlFor="categoria">Categoria</C.Label>
-              <C.Select id="categoria" value={selectedValueCategoria} onChange={handleChangeCategoria}>
+              <C.Select id="categoria" value={selectedValueCategoria} onChange={handleChangeCategoria} required>
                 <C.Option value=""></C.Option>
                 {data.categorias &&
                   data.categorias.map((item, index) => (
@@ -99,7 +99,7 @@ export const CadastrarProduto = ({data, action, onSubmit}) => {
       
             <C.FormGroup>
               <C.Label htmlFor="fornecedor">Fornecedor</C.Label>
-              <C.Select id="fornecedor" value={selectedValueFornecedor} onChange={handleChangeFornecedor}>
+              <C.Select id="fornecedor" value={selectedValueFornecedor} onChange={handleChangeFornecedor} required>
               <C.Option value=""></C.Option>
                 {data.fornecedores &&
                   data.fornecedores.map((item, index) => (

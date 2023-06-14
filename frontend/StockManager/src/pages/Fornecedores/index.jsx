@@ -1,8 +1,11 @@
 import * as C from "./styled";
-import useApi from "../../api/StockManagerAPI";
 import { useEffect, useState } from "react";
 import  { CadastrarFornecedor } from "../../components/CadastrarFornecedor"
-import {Loading} from "../../components/Loading"
+import  { EditarFornecedor } from "../../components/EditarFornecedor"
+import { Loading } from "../../components/Loading"
+import useApi from "../../api/StockManagerAPI";
+import { ExcluirFornecedor } from "../../components/ExcluirFornecedor";
+import { ScrollButton } from "../../components/ScrollButton";
 
 export const Fornecedores = () => {
 
@@ -10,6 +13,7 @@ export const Fornecedores = () => {
 
   const [fornecedores, setFornecedores] = useState([]);
   const [estados, setEstados] = useState([]);
+  const [itemFornecedor, setItemFornecedor] = useState();
 
   const [mostrarModalCadastrarFornecedor, setMostrarModalCadastrarFornecedor] = useState(false);
   const [mostrarModalEditarFornecedor, setMostrarModalEditarFornecedor] = useState(false);
@@ -30,6 +34,7 @@ export const Fornecedores = () => {
 
   const updateFornecedores = async (id, json) => {
     const data = await api.updateFornecedores(id, json);
+    getFornecedores();
   };
 
   const addFornecedores = async (json) => {
@@ -45,10 +50,12 @@ export const Fornecedores = () => {
   function handleModalCadastrarShow() {
     setMostrarModalCadastrarFornecedor(!mostrarModalCadastrarFornecedor);
   }   
-  function handleModalEditarShow() {
+  function handleModalEditarShow(item) {
+    setItemFornecedor(item);
     setMostrarModalEditarFornecedor(!mostrarModalEditarFornecedor);
   }   
-  function handleModalExcluirShow() {
+  function handleModalExcluirShow(item) {
+    setItemFornecedor(item);
     setMostrarModalExcluirFornecedor(!mostrarModalExcluirFornecedor);
   } 
 
@@ -94,10 +101,10 @@ export const Fornecedores = () => {
                 <C.TableColumn>{item.endereco.estado}</C.TableColumn>
                 <C.TableColumn>
                   <C.Btns>
-                    <C.ButtonAction bg="#069201" onClick={handleModalEditarShow}>
+                    <C.ButtonAction bg="#069201" onClick={() => handleModalEditarShow(item)}>
                       Editar
                     </C.ButtonAction>
-                    <C.ButtonAction bg="#c40404" onClick={handleModalExcluirShow}>
+                    <C.ButtonAction bg="#c40404" onClick={() => handleModalExcluirShow(item)}>
                       Excluir
                     </C.ButtonAction>
                   </C.Btns>
@@ -114,8 +121,23 @@ export const Fornecedores = () => {
           onSubmit={addFornecedores}
         />
       )}
+      {mostrarModalEditarFornecedor && (
+        <EditarFornecedor
+          action={handleModalEditarShow}
+          data={{itemFornecedor, fornecedores, estados}}
+          onSubmit={updateFornecedores}
+        />
+      )} 
+      {mostrarModalExcluirFornecedor && (
+        <ExcluirFornecedor
+          action={handleModalExcluirShow}
+          data={itemFornecedor}
+          onSubmit={deleteFornecedores}
+        />
+      )}
+      {!mostrarModalEditarFornecedor || !mostrarModalCadastrarFornecedor || !mostrarModalCadastrarFornecedor && <ScrollButton />}
     </C.Container>
-    
+   
   );
 };
 export default Fornecedores;

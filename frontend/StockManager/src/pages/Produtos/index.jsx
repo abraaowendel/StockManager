@@ -166,7 +166,7 @@ export const Produtos = () => {
           onSubmit={deleteProduto}
         />
       )}
-      {!mostrarModalEditarProduto && <ScrollButton />}
+      {!mostrarModalEditarProduto || !mostrarModalCadastrarProduto || !mostrarModalCadastrarProduto && <ScrollButton />}
     </C.Container>
   );
 };

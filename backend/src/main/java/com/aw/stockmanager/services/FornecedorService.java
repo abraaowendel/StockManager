@@ -27,6 +27,7 @@ public class FornecedorService {
     public List<FornecedorDTO> findAll() {
         return repository.findAll().stream().map(FornecedorDTO::new).toList();
     }
+
     @Transactional(readOnly = true)
     public FornecedorDTO findById(Long id) {
         return repository.findById(id)
@@ -55,6 +56,7 @@ public class FornecedorService {
     @Transactional
     public void delete(Long id) {
         try{
+            // DEVO DELETAR TODAS AS MERCADORIAS ASSOCIADAS A ESSE VENDEDOR
             if(repository.findById(id).isEmpty()) {
                 throw new ResourceNotFoundException("Fornecedor não encontrado.");
             }
