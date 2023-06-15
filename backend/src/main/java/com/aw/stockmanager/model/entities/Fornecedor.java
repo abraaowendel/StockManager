@@ -21,7 +21,7 @@ public class Fornecedor implements Serializable {
     @Embedded
     private Endereco endereco;
     @JsonIgnore
-    @OneToMany(mappedBy = "fornecedor")
+    @OneToMany(mappedBy = "fornecedor", cascade = CascadeType.ALL)
     private List<Produto> produtos = new ArrayList<>();
     public Fornecedor() {
     }

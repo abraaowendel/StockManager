@@ -127,34 +127,51 @@ export const StockManagerAPI = {
     const json = await apiFetchGet(url);
     return json;
   },
+  getFornecedores: async () =>{
+    const json = await apiFetchGet(`/fornecedores`);
+    return json;
+  },
+  getEstoque: async () => {
+    const json = await apiFetchGet(`/estoque`);
+    return json;
+  },
   updateProduto: async (id, body) => {
     const json = await apiFetchPut(`/produtos/${id}`, body);
+    return json;
+  },
+  updateFornecedores: async (id, body) => {
+    const json = await apiFetchPut(`/fornecedores/${id}`, body);
+    return json;
+  }, 
+  updateEstoque: async (id, body, condition) => {
+    if(condition){
+      const json = await apiFetchPut(`/estoque/entrada/${id}`, body);
+      return json;
+    }
+    const json = await apiFetchPut(`/estoque/saida/${id}`, body);
     return json;
   },
   addProduto: async (body) => {
     const json = await apiFetchPost("/produtos", body);
     return json;
   },
-  deleteProduto: async (id) => {
-    const json = await apiFetchDelete(`/produtos/${id}`);
-    return json;
-  },
-  getFornecedores: async () =>{
-    const json = await apiFetchGet(`/fornecedores`);
-    return json;
-  },
-  updateFornecedores: async (id, body) => {
-    const json = await apiFetchPut(`/fornecedores/${id}`, body);
-    return json;
-  },
   addFornecedores: async (body) => {
     const json = await apiFetchPost("/fornecedores", body);
+    return json;
+  },  
+  addEstoque: async (body) => {
+    const json = await apiFetchPost("/estoque", body);
+    return json;
+  },
+  deleteProduto: async (id) => {
+    const json = await apiFetchDelete(`/produtos/${id}`);
     return json;
   },
   deleteFornecedores: async (id) => {
     const json = await apiFetchDelete(`/fornecedores/${id}`);
     return json;
   },
+  
 }
 
 

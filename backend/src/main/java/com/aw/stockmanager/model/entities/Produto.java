@@ -19,7 +19,6 @@ public class Produto implements Serializable {
     private String descricao;
     private String codigo;
     private Double preco;
-    private Integer quantidade;
     @Column(name = "data_de_cadastro")
     private LocalDate dataDeCadastro;
     @ManyToOne
@@ -32,13 +31,12 @@ public class Produto implements Serializable {
 
     }
 
-    public Produto(Long id, String nome, String descricao, String codigo, Double preco, Integer quantidade, LocalDate dataDeCadastro, Categoria categoria, Fornecedor fornecedor) {
+    public Produto(Long id, String nome, String descricao, String codigo, Double preco, LocalDate dataDeCadastro, Categoria categoria, Fornecedor fornecedor) {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
         this.codigo = codigo;
         this.preco = preco;
-        this.quantidade = quantidade;
         this.dataDeCadastro = dataDeCadastro;
         this.categoria = categoria;
         this.fornecedor = fornecedor;
@@ -82,14 +80,6 @@ public class Produto implements Serializable {
 
     public void setPreco(Double preco) {
         this.preco = preco;
-    }
-
-    public Integer getQuantidade() {
-        return quantidade;
-    }
-
-    public void setQuantidade(Integer quantidade) {
-        this.quantidade = quantidade;
     }
 
     public LocalDate getDataDeCadastro() {

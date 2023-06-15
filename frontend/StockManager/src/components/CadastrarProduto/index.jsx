@@ -73,7 +73,7 @@ export const CadastrarProduto = ({data, action, onSubmit}) => {
       
             <C.FormGroup>
               <C.Label htmlFor="descricao">Descrição</C.Label>
-              <C.Input id="descricao" value={descricao} onChange={handleChangeDescricao} required></C.Input>
+              <C.Textarea id="descricao" value={descricao} onChange={handleChangeDescricao} required></C.Textarea>
             </C.FormGroup>
       
             <C.FormGroup>

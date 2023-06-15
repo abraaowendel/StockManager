@@ -7,7 +7,6 @@ export const Container = styled.div`
     position: relative;
     top: 0;
     bottom: 0;
-
     &.no-scroll{
         overflow: hidden;
         height: calc(100vh - 60px);
@@ -17,6 +16,7 @@ export const Box = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
+    margin-bottom: 3px;
 `;
 export const BoxSideRigth = styled.div`
     display: flex;

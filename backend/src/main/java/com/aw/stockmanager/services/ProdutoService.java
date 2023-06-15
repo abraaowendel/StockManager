@@ -80,7 +80,6 @@ public class ProdutoService {
         entity.setDescricao(dto.getDescricao());
         entity.setCategoria(dto.getCategoria());
         entity.setFornecedor(dto.getFornecedor());
-        entity.setQuantidade(dto.getQuantidade());
         entity.setDataDeCadastro(LocalDate.now());
     }
     public String gerarCodigoPorCategoria(Produto produto) {

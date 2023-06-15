@@ -21,8 +21,7 @@ public class ProdutoDTO {
     @NotNull(message = "Preço não pode ser nulo.")
     @DecimalMin(value = "0.01", message = "Preço inválido.")
     private Double preco;
-    @Min(value = 0, message = "Quantidade inválida.")
-    private Integer quantidade;
+
     @Past(message = "A data deve estar no passado.")
     private LocalDate dataDeCadastro;
     @Valid
@@ -33,13 +32,12 @@ public class ProdutoDTO {
     public ProdutoDTO() {
     }
 
-    public ProdutoDTO(Long id, String nome, String descricao, String codigo, Double preco, Integer quantidade, LocalDate dataDeCadastro, Categoria categoria, Fornecedor fornecedor) {
+    public ProdutoDTO(Long id, String nome, String descricao, String codigo, Double preco,  LocalDate dataDeCadastro, Categoria categoria, Fornecedor fornecedor) {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
         this.codigo = codigo;
         this.preco = preco;
-        this.quantidade = quantidade;
         this.dataDeCadastro = dataDeCadastro;
         this.categoria = categoria;
         this.fornecedor = fornecedor;
@@ -51,7 +49,6 @@ public class ProdutoDTO {
         descricao = entity.getDescricao();
         codigo = entity.getCodigo();
         preco = entity.getPreco();
-        quantidade = entity.getQuantidade();
         dataDeCadastro = entity.getDataDeCadastro();
         categoria = entity.getCategoria();
         fornecedor = entity.getFornecedor();
@@ -111,14 +108,6 @@ public class ProdutoDTO {
 
     public void setPreco(Double preco) {
         this.preco = preco;
-    }
-
-    public Integer getQuantidade() {
-        return quantidade;
-    }
-
-    public void setQuantidade(Integer quantidade) {
-        this.quantidade = quantidade;
     }
 
     public Categoria getCategoria() {

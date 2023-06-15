@@ -17,6 +17,7 @@ export const Box = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
+    margin-bottom: 3px;
 `;
 export const BoxSideRigth = styled.div`
     display: flex;
