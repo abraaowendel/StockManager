@@ -20,7 +20,7 @@ export const Box = styled.div`
 export const Form = styled.form`
     border: 1px solid #9b9999;
     border-radius: 10px;
-    min-width: 430px;
+    min-width: 380px;
     padding: 25px;
     background-color: #fff;
 `;
@@ -28,19 +28,13 @@ export const Form = styled.form`
 export const FormGroup = styled.div`
     display: flex;
     flex-direction: column;
-    input[type="number"] {
-        width: calc(100% - 40px); 
-        padding-left: 10px;
-        border-left: none;
-        border-radius: 0 4px 4px 0;
-    }
-
 `;
 
 export const ButtonCloseArea = styled.div `
     display: flex;
     align-items: center;
     justify-content: space-between;
+    margin-bottom: 10px;
 `
 export const ButtonAddArea = styled.div `
     button{
@@ -51,7 +45,7 @@ export const ButtonAddArea = styled.div `
     }
 `
 export const Button = styled.button `
-   padding: 7px 15px;
+   padding: 5px 15px;
    margin-top: ${(props) => props.mg? "15px": "0px"};
    background-color: ${(props) => props.bg};
    cursor: pointer;
@@ -59,12 +53,13 @@ export const Button = styled.button `
    border-radius: 3px;
    color: #fff;
    font-weight: bold;
-   font-size: 13px;
+   font-size: 12px;
    &:hover{
      opacity: 0.8;
    }
 `
 export const Title = styled.h2 `
+    font-size: 20px;
     color: #26748A;
     margin: 0;
 `
@@ -103,6 +98,7 @@ export const Textarea = styled.textarea`
     padding: 10px;
 `
 export const Select = styled.select`
+    height: 42px;
  
 `
 export const Option = styled.option`

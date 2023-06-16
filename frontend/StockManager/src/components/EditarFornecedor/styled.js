@@ -58,7 +58,6 @@ export const Button = styled.button`
 `;
 
 export const Title = styled.h2`
-  font-style: 20px;
   color: #26748a;
   margin: 0;
 `;

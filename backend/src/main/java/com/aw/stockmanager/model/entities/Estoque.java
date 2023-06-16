@@ -2,19 +2,19 @@ package com.aw.stockmanager.model.entities;
 
 import jakarta.persistence.*;
 
+import java.io.Serializable;
+
 @Entity
 @Table(name = "TB_ESTOQUE")
-public class Estoque {
+public class Estoque implements Serializable {
+    private static final long serialVersionUUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @OneToOne
     private Produto produto;
-
     private Integer quantidade;
-    @Column(name = "preco_total")
-    private Double precoTotal;
 
     public Estoque() {
     }
@@ -41,10 +41,6 @@ public class Estoque {
         return quantidade;
     }
 
-    public Double getPrecoTotal() {
-        return precoTotal;
-    }
-
     public void setProduto(Produto produto) {
         this.produto = produto;
     }
@@ -53,7 +49,4 @@ public class Estoque {
         this.quantidade = quantidade;
     }
 
-    public void setPrecoTotal(Produto produto, Integer quantidade) {
-        this.precoTotal = produto.getPreco() * quantidade;
-    }
 }

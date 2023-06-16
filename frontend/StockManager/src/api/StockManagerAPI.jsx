@@ -143,13 +143,9 @@ export const StockManagerAPI = {
     const json = await apiFetchPut(`/fornecedores/${id}`, body);
     return json;
   }, 
-  updateEstoque: async (id, body, condition) => {
-    if(condition){
-      const json = await apiFetchPut(`/estoque/entrada/${id}`, body);
+  updateEstoque: async (id, body) => {
+      const json = await apiFetchPut(`/estoque/${id}`, body);
       return json;
-    }
-    const json = await apiFetchPut(`/estoque/saida/${id}`, body);
-    return json;
   },
   addProduto: async (body) => {
     const json = await apiFetchPost("/produtos", body);

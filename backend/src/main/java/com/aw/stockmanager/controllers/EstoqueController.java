@@ -26,5 +26,9 @@ public class EstoqueController {
     public ResponseEntity<EstoqueDTO> insert(@RequestBody EstoqueDTO dto){
         return ResponseEntity.status(HttpStatus.CREATED).body(service.insert(dto));
     }
+    @PutMapping("/{id}")
+    public ResponseEntity<EstoqueDTO> insert(@PathVariable Long id, @RequestBody EstoqueDTO dto){
+        return ResponseEntity.status(HttpStatus.OK).body(service.update(id, dto));
+    }
 
 }

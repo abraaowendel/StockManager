@@ -7,23 +7,20 @@ public class EstoqueDTO {
     private Long id;
     private Produto produto;
     private Integer quantidade;
-    private Double precoTotal;
 
     public EstoqueDTO() {
     }
 
-    public EstoqueDTO(Long id, Produto produto, Integer quantidade, Double precoTotal) {
+    public EstoqueDTO(Long id, Produto produto, Integer quantidade) {
         this.id = id;
         this.produto = produto;
         this.quantidade = quantidade;
-        this.precoTotal = precoTotal;
     }
 
     public EstoqueDTO(Estoque entity) {
         id = entity.getId();
         produto = entity.getProduto();
         quantidade = entity.getQuantidade();
-        precoTotal = entity.getPrecoTotal();
     }
 
     public Long getId() {
@@ -50,11 +47,4 @@ public class EstoqueDTO {
         this.quantidade = quantidade;
     }
 
-    public Double getPrecoTotal() {
-        return precoTotal;
-    }
-
-    public void setPrecoTotal(Double precoTotal) {
-        this.precoTotal = precoTotal;
-    }
 }

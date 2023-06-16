@@ -52,6 +52,7 @@ export const Produtos = () => {
 
   const updateProduto = async (id, json) => {
     const data = await api.updateProduto(id, json);
+    getProdutos();
   };
 
   const addProduto = async (json) => {
@@ -127,7 +128,7 @@ export const Produtos = () => {
               <C.TableLine key={index}>
                 <C.TableColumn>{item.codigo}</C.TableColumn>
                 <C.TableColumn>{item.nome}</C.TableColumn>
-                <C.TableColumn>R$ {(item.preco).toFixed(2)}</C.TableColumn>
+                <C.TableColumn>R$ {item.preco}</C.TableColumn>
                 <C.TableColumn>{item.categoria.nome}</C.TableColumn>
                 <C.TableColumn>
                   <C.Btns>

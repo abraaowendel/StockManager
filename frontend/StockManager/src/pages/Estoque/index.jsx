@@ -1,9 +1,12 @@
 import * as C from "./styled";
 import useApi from "../../api/StockManagerAPI";
 import { useEffect, useState } from "react";
+import { Loading } from "../../components/Loading";
+import { AdicionarProdutoAoEstoque } from "../../components/AdicionarProdutoAoEstoque";
+import { EntradaProdutoAoEstoque } from "../../components/EntradaProdutoAoEstoque";
+import { SaidaProdutoDoEstoque } from "../../components/SaidaProdutoDoEstoque";
 
 const Estoque = () => {
-
   const api = useApi();
 
   const [estoque, setEstoque] = useState([]);
@@ -12,7 +15,7 @@ const Estoque = () => {
   const [mostrarModalAdicionarEstoque, setMostrarModalAdicionarEstoque] = useState(false);
   const [mostrarModalSaidaEstoque, setMostrarModalSaidaEstoque] = useState(false);
   const [mostrarModalEntradaEstoque, setMostrarModalEntradaEstoque] = useState(false);
-  const [produtoId, setProdutoId] = useState();
+
   const [produto, setProduto] = useState();
   
   useEffect(() => {
@@ -20,7 +23,7 @@ const Estoque = () => {
   }, []);
 
   useEffect(() => {
-    getEstoque();
+    getProdutos();
   }, []);
 
   const getEstoque = async () => {
@@ -28,40 +31,32 @@ const Estoque = () => {
     setEstoque(data);
   };
   const getProdutos = async () => {
-    const data = await api.getProdutos();
-    setProdutos(data);
+    const data = await api.getProdutos("Todas");
+    setProdutos(data.content);
   };
 
-  const addEstoque = async (id, json) => {
-    const data = await api.addEstoque(id, json);
+  const addEstoque = async (json) => {
+    const data = await api.addEstoque(json);
     getEstoque();
   };
 
-  const addQuantity = async (id, json) => {
-    const data = await api.updateEstoque(id, json, true);
+  const updateEstoque = async (id, json) => {
+    const data = await api.updateEstoque(id, json);
     getEstoque();
   };
 
-  const removeQuantity = async (id, json) => {
-    const data = await api.deleteProduto(id, json, false);
-    getEstoque();
-  };
-
-   function handleChange(event) {
-   }
-
-   function handleModalAdicionarEstoqueShow(item) {
-    setProduto(item);
+  function handleModalAdicionarEstoqueShow() {
     setMostrarModalAdicionarEstoque(!mostrarModalAdicionarEstoque);
-   }
-   function handleModalEntradaEstoqueShow(id) {
-     setProdutoId(id);
-     setMostrarModalEntradaEstoque(!mostrarModalEntradaEstoque);
-   }
-   function handleModalSaidaEstoqueShow(id) {
-     setProdutoId(id);
-     setMostrarModalSaidaEstoque(!mostrarModalSaidaEstoque);
-   }
+  }
+  function handleModalEntradaEstoqueShow(item) {
+    setProduto(item);
+    setMostrarModalEntradaEstoque(!mostrarModalEntradaEstoque);
+  }
+  function handleModalSaidaEstoqueShow(item) {
+    setProduto(item);
+    setMostrarModalSaidaEstoque(!mostrarModalSaidaEstoque);
+  }
+
    const containerClass =
    mostrarModalSaidaEstoque ||
    mostrarModalEntradaEstoque ||
@@ -98,18 +93,43 @@ const Estoque = () => {
                         <C.TableColumn>{item.produto.codigo}</C.TableColumn>
                         <C.TableColumn>{item.produto.nome}</C.TableColumn>
                         <C.TableColumn>R$ {(item.produto.preco).toFixed(2)}</C.TableColumn>
-                        <C.TableColumn>R$ {(item.precoTotal).toFixed(2)}</C.TableColumn>
+                        <C.TableColumn>R$ {(item.produto.preco * item.quantidade).toFixed(2)}</C.TableColumn>
                         <C.TableColumn>{item.quantidade}</C.TableColumn>
                         <C.TableColumn>
                             <C.Btns>
-                                <C.ButtonAction bg="#069201" onClick={() => mostrarModalEntradaEstoque(item.id)}>Entrada</C.ButtonAction>
-                                <C.ButtonAction bg="#c40404" onClick={() => mostrarModalSaidaEstoque(item.id)}>Saida</C.ButtonAction>
+                                <C.ButtonAction bg="#069201" onClick={() => handleModalEntradaEstoqueShow(item)}>Entrada</C.ButtonAction>
+                                <C.ButtonAction bg="#c40404" onClick={() => handleModalSaidaEstoqueShow(item)}>Saida</C.ButtonAction>
                             </C.Btns>
                         </C.TableColumn>
                     </C.TableLine>
                 ))}
             </C.TableBody>
           </C.Table>
+
+          {estoque.length === 0 && <Loading />}
+
+          {mostrarModalAdicionarEstoque &&
+            <AdicionarProdutoAoEstoque
+              action={handleModalAdicionarEstoqueShow}
+              data={{produtos, estoque}}
+              onSubmit={addEstoque}
+            />
+          }
+           {mostrarModalEntradaEstoque &&
+            <EntradaProdutoAoEstoque
+              action={handleModalEntradaEstoqueShow}
+              data={produto}
+              onSubmit={updateEstoque}
+            />
+          }
+        {mostrarModalSaidaEstoque &&
+            <SaidaProdutoDoEstoque
+              action={handleModalSaidaEstoqueShow}
+              data={produto}
+              onSubmit={updateEstoque}
+            />
+          }
+
         </C.Container>
     );
 }
