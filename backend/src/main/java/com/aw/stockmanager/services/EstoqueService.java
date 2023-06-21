@@ -1,12 +1,13 @@
 package com.aw.stockmanager.services;
 
 import com.aw.stockmanager.model.dto.EstoqueDTO;
-import com.aw.stockmanager.model.dto.FornecedorDTO;
 import com.aw.stockmanager.model.entities.Estoque;
 import com.aw.stockmanager.repositories.EstoqueRepository;
 import com.aw.stockmanager.services.exceptions.ResourceNotFoundException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.BeanUtils;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,10 +22,17 @@ public class EstoqueService {
     }
 
     @Transactional(readOnly = true)
-    public List<EstoqueDTO> findAll() {
-        return repository.findAll().stream().map(EstoqueDTO::new).toList();
+    public Page<EstoqueDTO> findAll(Pageable pageable) {
+        return repository.findAll(pageable).map(EstoqueDTO::new);
     }
-
+    @Transactional(readOnly = true)
+    public long getProductCount() {
+        return repository.count();
+    }
+    @Transactional(readOnly = true)
+    public long getProductCountWithZeroQuantity() {
+        return repository.countByQuantidade(0);
+    }
     @Transactional
     public EstoqueDTO insert(EstoqueDTO dto) {
         var entity = new Estoque();

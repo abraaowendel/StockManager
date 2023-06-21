@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface EstoqueRepository extends JpaRepository<Estoque, Long> {
+    long countByQuantidade(int i);
 }

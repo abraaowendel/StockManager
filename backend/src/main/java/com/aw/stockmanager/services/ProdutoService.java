@@ -35,6 +35,10 @@ public class ProdutoService {
         return repository.buscarPorCategoria(category, pageable).stream().map(ProdutoDTO::new).toList();
     }
     @Transactional(readOnly = true)
+    public long getProductCount() {
+        return repository.count();
+    }
+    @Transactional(readOnly = true)
     public ProdutoDTO findById(Long id) {
         return repository.findById(id)
                 .map(ProdutoDTO::new)
@@ -72,6 +76,7 @@ public class ProdutoService {
             throw new DataBaseException("Essa ação compromete a integridade do banco de dados.");
         }
     }
+
     public void copiarDTOtoEntity(ProdutoDTO dto, Produto entity){
         entity.setId(dto.getId());
         entity.setNome(dto.getNome());
@@ -108,4 +113,7 @@ public class ProdutoService {
         }
         return null;
     }
+
+
+
 }

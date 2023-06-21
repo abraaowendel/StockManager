@@ -33,7 +33,11 @@ public class ProdutoController {
     public ResponseEntity<ProdutoDTO> listarProduto(@PathVariable Long id){
         return ResponseEntity.status(HttpStatus.OK).body(service.findById(id));
     }
-
+    @GetMapping("/count")
+    public ResponseEntity<Long> getProductCount() {
+        long count = service.getProductCount();
+        return ResponseEntity.status(HttpStatus.OK).body(count);
+    }
     @PostMapping
     public ResponseEntity<ProdutoDTO> cadastrarProduto(@RequestBody @Valid ProdutoDTO dto){
         return ResponseEntity.status(HttpStatus.CREATED).body(service.insert(dto));
@@ -49,5 +53,7 @@ public class ProdutoController {
         service.delete(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
+
+
 
 }
