@@ -1,13 +1,15 @@
 import { MainRoutes } from "./routers/MainRoutes";
-import { Header } from "./components/Header";
+import { Dashboard } from "./components/Dashboard";
 import "./App.css";
 
 function App() {
 
   return (
     <>
-      <Header/>
-      <MainRoutes />
+      <main>
+        <Dashboard/>
+        <MainRoutes/>
+      </main>
     </>
   );
 }

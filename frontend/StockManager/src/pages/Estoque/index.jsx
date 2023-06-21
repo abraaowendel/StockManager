@@ -8,9 +8,9 @@ import { SaidaProdutoDoEstoque } from "../../components/SaidaProdutoDoEstoque";
 
 const Estoque = () => {
   const api = useApi();
-
   const [estoque, setEstoque] = useState([]);
   const [produtos, setProdutos] = useState([]);
+  console.log(estoque)
 
   const [mostrarModalAdicionarEstoque, setMostrarModalAdicionarEstoque] = useState(false);
   const [mostrarModalSaidaEstoque, setMostrarModalSaidaEstoque] = useState(false);
@@ -28,7 +28,7 @@ const Estoque = () => {
 
   const getEstoque = async () => {
     const data = await api.getEstoque();
-    setEstoque(data);
+    setEstoque(data.content);
   };
   const getProdutos = async () => {
     const data = await api.getProdutos("Todas");
@@ -67,6 +67,7 @@ const Estoque = () => {
 
  return(
     <C.Container className={containerClass}>
+      <C.BoxArea>
         <C.Box>
             <C.BoxSideLeft>
                 <C.Title>Estoque</C.Title>
@@ -105,6 +106,8 @@ const Estoque = () => {
                 ))}
             </C.TableBody>
           </C.Table>
+      </C.BoxArea>
+       
 
           {estoque.length === 0 && <Loading />}
 

@@ -69,6 +69,7 @@ export const Fornecedores = () => {
 
   return (
     <C.Container className={containerClass}>
+      <C.BoxArea>
       <C.Box>
         <C.BoxSideLeft>
           <C.Title>Fornecedores</C.Title>
@@ -113,6 +114,8 @@ export const Fornecedores = () => {
             ))}
         </C.TableBody>
       </C.Table>
+      </C.BoxArea>
+      
       {fornecedores.length === 0 && <Loading />}
       {mostrarModalCadastrarFornecedor && (
         <CadastrarFornecedor

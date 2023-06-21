@@ -95,12 +95,12 @@ export const EditarFornecedor = ({data, action, onSubmit}) => {
 
               <C.FormGroup>
                 <C.Input type="text" id="id" value={codigo} disabled style={{fontFamily: "arial"}}/>
-                <C.Label htmlFor="nome" active={true}>Código</C.Label>
+                <C.Label htmlFor="nome" active={"true"}>Código</C.Label>
               </C.FormGroup>
       
               <C.FormGroup>
                 <C.Input type="text" id="nome" value={nome} onChange={handleChangeNome} required />
-                <C.Label htmlFor="nome" active={nome !== ""}>Nome</C.Label>
+                <C.Label htmlFor="nome" active={nome.toString()}>Nome</C.Label>
               </C.FormGroup>
       
               <C.FormGroup>
@@ -118,12 +118,12 @@ export const EditarFornecedor = ({data, action, onSubmit}) => {
               
               <C.FormGroup>
                 <C.Input type="text" id="rua" value={rua} onChange={handleChangeRua} required />
-                <C.Label htmlFor="rua" active={rua !== ""}>Rua</C.Label>
+                <C.Label htmlFor="rua" active={rua.toString()}>Rua</C.Label>
               </C.FormGroup>
       
               <C.FormGroup>
                 <C.Input type="text" id="numero" value={numero} onChange={handleChangeNumero} required />
-                <C.Label htmlFor="numero" active={numero !== ""}>Número</C.Label>
+                <C.Label htmlFor="numero" active={numero.toString()}>Número</C.Label>
               </C.FormGroup>
            
               <C.FormGroup>

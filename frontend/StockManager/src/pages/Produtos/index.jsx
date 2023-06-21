@@ -90,61 +90,62 @@ export const Produtos = () => {
 
   return (
     <C.Container className={containerClass}>
-      <C.Box >
-        <C.BoxSideLeft >
-          <C.Title>Mercadorias</C.Title>
-        </C.BoxSideLeft>
-        <C.BoxSideRigth>
-          <C.Label htmlFor="select--produtos">Categorias: </C.Label>
-          <C.Select
-            id="select--produtos"
-            value={selectedValueCategoria}
-            onChange={handleChange}>
+      <C.BoxArea>
+        <C.Box >
+          <C.BoxSideLeft >
+            <C.Title>Mercadorias</C.Title>
+          </C.BoxSideLeft>
+          <C.BoxSideRigth>
+            <C.Label>Categorias: </C.Label>
+            <C.Select
+              id="select--produtos"
+              value={selectedValueCategoria}
+              onChange={handleChange}>
 
-            <C.Option value="Todas">Todas</C.Option>
-            {categorias &&
-              categorias.map((item, index) => (
-                <C.Option key={index} value={item.nome}>
-                  {item.nome}
-                </C.Option>
+              <C.Option value="Todas">Todas</C.Option>
+              {categorias &&
+                categorias.map((item, index) => (
+                  <C.Option key={index} value={item.nome}>
+                    {item.nome}
+                  </C.Option>
+                ))}
+            </C.Select>
+            <C.Button onClick={handleModalCadastrarShow}>Cadastrar Mercadoria</C.Button>
+          </C.BoxSideRigth>
+        </C.Box>
+        <C.Table>
+          <C.TableCabecalho>
+            <C.TableLine>
+              <C.TableTitle>Cód.</C.TableTitle>
+              <C.TableTitle>Nome</C.TableTitle>
+              <C.TableTitle>Preço</C.TableTitle>
+              <C.TableTitle>Categoria</C.TableTitle>
+              <C.TableTitle style={{ textAlign: "center" }}>Ações</C.TableTitle>
+            </C.TableLine>
+          </C.TableCabecalho>
+          <C.TableBody>
+            {produtos &&
+              produtos.map((item, index) => (
+                <C.TableLine key={index}>
+                  <C.TableColumn>{item.codigo}</C.TableColumn>
+                  <C.TableColumn>{item.nome}</C.TableColumn>
+                  <C.TableColumn>R$ {item.preco}</C.TableColumn>
+                  <C.TableColumn>{item.categoria.nome}</C.TableColumn>
+                  <C.TableColumn>
+                    <C.Btns>
+                      <C.ButtonAction bg="#069201" onClick={() => handleModalEditarShow(item)}>
+                        Editar
+                      </C.ButtonAction>
+                      <C.ButtonAction bg="#c40404" onClick={() => handleModalExcluirShow(item)}>
+                        Excluir
+                      </C.ButtonAction>
+                    </C.Btns>
+                  </C.TableColumn>
+                </C.TableLine>
               ))}
-          </C.Select>
-          <C.Button onClick={handleModalCadastrarShow}>Cadastrar Mercadoria</C.Button>
-        </C.BoxSideRigth>
-      </C.Box>
-      <C.Table>
-        <C.TableCabecalho>
-          <C.TableLine>
-            <C.TableTitle>Cód.</C.TableTitle>
-            <C.TableTitle>Nome</C.TableTitle>
-            <C.TableTitle>Preço</C.TableTitle>
-            <C.TableTitle>Categoria</C.TableTitle>
-            <C.TableTitle style={{ textAlign: "center" }}>Ações</C.TableTitle>
-          </C.TableLine>
-        </C.TableCabecalho>
-        <C.TableBody>
-          {produtos &&
-            produtos.map((item, index) => (
-              <C.TableLine key={index}>
-                <C.TableColumn>{item.codigo}</C.TableColumn>
-                <C.TableColumn>{item.nome}</C.TableColumn>
-                <C.TableColumn>R$ {item.preco}</C.TableColumn>
-                <C.TableColumn>{item.categoria.nome}</C.TableColumn>
-                <C.TableColumn>
-                  <C.Btns>
-                    <C.ButtonAction bg="#069201" onClick={() => handleModalEditarShow(item)}>
-                      Editar
-                    </C.ButtonAction>
-                    <C.ButtonAction bg="#c40404" onClick={() => handleModalExcluirShow(item)}>
-                      Excluir
-                    </C.ButtonAction>
-                  </C.Btns>
-                </C.TableColumn>
-              </C.TableLine>
-            ))}
-        </C.TableBody>
-      </C.Table>
-
+          </C.TableBody>
+        </C.Table>
+      </C.BoxArea>
       {produtos.length === 0 && <Loading />}
       {mostrarModalCadastrarProduto && (
         <CadastrarProduto

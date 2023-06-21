@@ -1,16 +1,18 @@
 import * as C from "./styled";
 import Logo from "../../assets/images/logo.svg"
 import { Link } from "react-router-dom"
+import {isLogged } from "../../helpers/auth/AuthHandler";
 
 export const Header = () => {
+    let logged = isLogged();
 
     return(
       <>
-         <C.HeaderArea>
+      {logged && 
+            <C.HeaderArea>
             <C.Sides>
                 <C.SideLeft>
-                    <C.Img src={Logo} alt=""/>
-                    <C.Title>StockManager</C.Title>
+                
                 </C.SideLeft>
                 <C.SideRight>
                     <C.Ul>
@@ -40,7 +42,8 @@ export const Header = () => {
                 </C.SideRight>
             </C.Sides>
         </C.HeaderArea> 
-      
+      }
+        
       </>
     )
 }

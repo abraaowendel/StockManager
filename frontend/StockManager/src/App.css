@@ -8,3 +8,8 @@
 html,body{
     overflow-x: hidden;
 }
+main{
+    display: flex;
+    justify-content: center;
+    background-color: #141B2D;
+}

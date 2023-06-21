@@ -1,9 +1,17 @@
+import Cookies from "js-cookie";
+
 const API_URL = "http://localhost:8080";
-const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhcGkuU3RvY2tNYW5hZ2VyIiwic3ViIjoidGVzdEB0ZXN0LmNvbSIsImlkIjoxLCJleHAiOjE2ODgwNDk3ODh9.IJBCXJSO6oSAo3f_w57tyHWXjM9iPnKFkRsQnleGOt4";
 
 
 //GET
 const apiFetchGet = async (endpoint) => {
+
+    let token = Cookies.get('token')
+
+    if(!token){
+      window.location.href = "/entrar"
+    }
+
     const response = await fetch(`${API_URL}${endpoint}`,{
       method: "GET",
       headers: {
@@ -22,9 +30,39 @@ const apiFetchGet = async (endpoint) => {
     }
  
 }
+// LOGIN
+const apiFetchLogin = async (endpoint, body) => {
+
+  const response = await fetch(`${API_URL}${endpoint}`,{
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Origin: "http://localhost:5173"
+      },
+    body: JSON.stringify(body)
+  });
+  
+  if (response.ok) {
+    const data = await response.json();
+    return data;
+  } 
+  else if(response.status === 401){
+    const data = await response.json();
+    return data;
+  }
+  else {
+    throw new Error("Erro na requisição: " + response.status);
+  }
+}
 
 //POST
 const apiFetchPost = async (endpoint, body) => {
+    let token = Cookies.get('token')
+
+    if(!token){
+      window.location.href = "/entrar"
+    }
+
     const response = await fetch(`${API_URL}${endpoint}`,{
       method: "POST",
       headers: {
@@ -49,6 +87,12 @@ const apiFetchPost = async (endpoint, body) => {
 
 //PUT
 const apiFetchPut = async (endpoint, body) => {
+    let token = Cookies.get('token')
+
+    if(!token){
+      window.location.href = "/entrar"
+    }
+
     const response = await fetch(`${API_URL}${endpoint}`,{
       method: "PUT",
       headers: {
@@ -68,6 +112,12 @@ const apiFetchPut = async (endpoint, body) => {
 }
 //DELETE
 const apiFetchDelete = async (endpoint) => {
+
+    let token = Cookies.get('token')
+
+    if(!token){
+      window.location.href = "/entrar"
+    }
 
     const response = await fetch(`${API_URL}${endpoint}`,{
       method: "DELETE",
@@ -89,7 +139,7 @@ const apiFetchDelete = async (endpoint) => {
 export const StockManagerAPI = {
 
   login: async (username, password) => {
-      const json = await apiFetchPost("/login", {username, password})
+      const json = await apiFetchLogin("/login", {username, password})
       return json;
   },
   getEstados: async() => {
@@ -127,6 +177,10 @@ export const StockManagerAPI = {
     const json = await apiFetchGet(url);
     return json;
   },
+  getProdutosQuantidade: async () => {
+    const json = await apiFetchGet(`/produtos/count`);
+    return json;
+  },
   getFornecedores: async () =>{
     const json = await apiFetchGet(`/fornecedores`);
     return json;
@@ -134,7 +188,16 @@ export const StockManagerAPI = {
   getEstoque: async () => {
     const json = await apiFetchGet(`/estoque`);
     return json;
-  },
+  },  
+  getProdutosQuantidadeEmEstoque: async () => {
+    const json = await apiFetchGet(`/estoque/count`);
+    return json;
+  },  
+  getProdutosZeradosQuantidadeEmEstoque: async () => {
+    const json = await apiFetchGet(`/estoque/count/zerados`);
+    console.log(json)
+    return json;
+  }, 
   updateProduto: async (id, body) => {
     const json = await apiFetchPut(`/produtos/${id}`, body);
     return json;
@@ -166,9 +229,7 @@ export const StockManagerAPI = {
   deleteFornecedores: async (id) => {
     const json = await apiFetchDelete(`/fornecedores/${id}`);
     return json;
-  },
-  
+  }
 }
-
 
 export default () => StockManagerAPI;

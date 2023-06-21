@@ -13,7 +13,7 @@ export const SaidaProdutoDoEstoque = ({ data, action, onSubmit }) => {
 
   function handleSubmitForm(event) {
     event.preventDefault();
-    if(quantidade < selectedProduto.quantidade && quantidade > 0 ){
+    if(quantidade <= selectedProduto.quantidade && quantidade > 0 ){
         selectedProduto.quantidade -= Number(quantidade);
         onSubmit(data.id, data);
         action();
